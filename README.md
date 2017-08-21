@@ -3,7 +3,8 @@
 
 ## Step 1:
 Covert circular image into pano image. And use github page to show the 360 pano image for testing. 
+
 This is the originial image, the left most circular to the left boundary is about 220 pixels.
-![Image of test](https://github.com/rpicamera/360pano/test.jpg)
+![Image of test](https://octodex.github.com/rpicamera/360pano/test.jpg)
 ## Step 2:
 ...
