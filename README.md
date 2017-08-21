@@ -10,15 +10,15 @@ This is the originial image, the left most circular to the left boundary is abou
   <img src="https://github.com/rpicamera/360pano/blob/master/test.jpg" width="350"/>
 </p>
 
-![Image of test](https://github.com/rpicamera/360pano/blob/master/test.jpg)
-
 Here is the image after crop and rotation
-
-![Image of test](https://github.com/rpicamera/360pano/blob/master/resizecrpped.png)
+<p align="center">
+  <img src="https://github.com/rpicamera/360pano/blob/master/resizecrpped.png" width="350"/>
+</p>
 
 And here is the pano image after remapping the above squared circular image
-
-![Image of test](https://github.com/rpicamera/360pano/blob/master/convertpanotest.png)
+<p align="center">
+  <img src="https://github.com/rpicamera/360pano/blob/master/convertpanotest.png" width="350"/>
+</p>
 
 ## Step 2:
 ...
