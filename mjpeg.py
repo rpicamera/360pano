@@ -20,13 +20,10 @@ class CamHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
             self.end_headers()
-            while True:
+            for foo in camera.capture_continuous(stream, 'jpeg'):
                 try:
-                    stream = io.BytesIO()
-                    with picamera.PiCamera() as camera:
-                    	camera.resolution = (342, 256)
-                        camera.start_preview()
-                        camera.capture(stream, format='jpeg')
+                    stream.seek(0)
+
                     jpg = Image.open(stream)
                     tmpFile = StringIO.StringIO()
                     jpg.save(tmpFile,'JPEG')
@@ -35,7 +32,9 @@ class CamHandler(BaseHTTPRequestHandler):
                     self.send_header('Content-length',str(tmpFile.len))
                     self.end_headers()
                     jpg.save(self.wfile,'JPEG')
-                    time.sleep(0.05)
+                    #time.sleep(0.05)
+                    stream.seek(0)
+                    stream.truncate()
                 except KeyboardInterrupt:
                     break
             return
@@ -53,6 +52,15 @@ class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
     """Handle requests in a separate thread."""
 
 def main():
+    global camera
+    global stream
+    camera = picamera.PiCamera()
+    camera.resolution = (341, 256)
+    camera.start_preview()
+    time.sleep(2)
+
+    stream = io.BytesIO()
+    
     try:
         server = ThreadedHTTPServer(('localhost', 8080), CamHandler)
         print "server started"
