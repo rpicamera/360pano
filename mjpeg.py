@@ -24,12 +24,9 @@ class CamHandler(BaseHTTPRequestHandler):
                 try:
                     stream.seek(0)
                     jpg = Image.open(stream)
-                    
-                    tmpFile = StringIO.StringIO()
-                    jpg.save(tmpFile,'JPEG')
                     self.wfile.write("--jpgboundary")
                     self.send_header('Content-type','image/jpeg')
-                    self.send_header('Content-length',str(tmpFile.len))
+                    self.send_header('Content-length',str(len(stream.read())))
                     self.end_headers()
                     jpg.save(self.wfile,'JPEG')
 

@@ -28,15 +28,12 @@ class CamHandler(BaseHTTPRequestHandler):
                     data = np.fromstring(stream.getvalue(), dtype=np.uint8)
                     # "Decode" the image from the array, preserving colour
                     imgRGB = cv2.imdecode(data, 1)
-                    imgRGB = imgRGB[0:width,mleft:(mleft+width)]
+                    imgRGB = imgRGB[mtop:width,mleft:(mleft+width)]
                     imgRGB = cv2.remap(imgRGB,xmap,ymap,cv2.INTER_LINEAR)
                     jpg = Image.fromarray(imgRGB)
-                    #jpg = Image.open(stream)
-                    tmpFile = StringIO.StringIO()
-                    jpg.save(tmpFile,'JPEG')
                     self.wfile.write("--jpgboundary")
                     self.send_header('Content-type','image/jpeg')
-                    self.send_header('Content-length',str(tmpFile.len))
+                    self.send_header('Content-length',str(len(stream.read())))
                     self.end_headers()
                     jpg.save(self.wfile,'JPEG')
 
@@ -105,20 +102,17 @@ def main():
     time.sleep(2)
     stream = io.BytesIO()
 
-    global img
     global xmap,ymap
     global width
-    global M
     global mleft
     global mtop
 
     mleft = 22
-    mtop = 1
+    mtop = 0
     width=128
-    M = np.float32([[1,0,0],[0,1,mtop]])
 
-    fov=195
-    [xmap,ymap] = buildMap(width,width,fov,True)
+    fov=float(195)
+    xmap,ymap = buildMap(width,width,fov,False)
     try:
         server = ThreadedHTTPServer(('localhost', 8080), CamHandler)
         print "server started"
