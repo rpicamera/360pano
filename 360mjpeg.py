@@ -19,23 +19,23 @@ class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path.endswith('.mjpg'):
             self.send_response(200)
-            self.send_header('Content-type','multipartx-mixed-replace; boundary=--jpgboundary')
+            self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
             self.end_headers()
             for foo in camera.capture_continuous(stream, 'jpeg'):
                 try:
                     stream.seek(0)
                     # Construct a numpy array from the stream
-                    #data = np.fromstring(stream.getvalue(), dtype=np.uint8)
+                    data = np.fromstring(stream.getvalue(), dtype=np.uint8)
                     # "Decode" the image from the array, preserving colour
-                    #imgRGB = cv2.imdecode(data, 1)
-                    #imgRGB = imgRGB[0:width,mleft:(mleft+width)]
-                    #imgRGB = cv2.remap(imgRGB,xmap,ymap,cv2.INTER_LINEAR)
-                    #jpg = Image.fromarray(imgRGB)
-                    jpg = Image.open(stream)
+                    imgRGB = cv2.imdecode(data, 1)
+                    imgRGB = imgRGB[0:width,mleft:(mleft+width)]
+                    imgRGB = cv2.remap(imgRGB,xmap,ymap,cv2.INTER_LINEAR)
+                    jpg = Image.fromarray(imgRGB)
+                    #jpg = Image.open(stream)
                     tmpFile = StringIO.StringIO()
                     jpg.save(tmpFile,'JPEG')
                     self.wfile.write("--jpgboundary")
-                    self.send_header('Content-type','imagejpeg')
+                    self.send_header('Content-type','image/jpeg')
                     self.send_header('Content-length',str(tmpFile.len))
                     self.end_headers()
                     jpg.save(self.wfile,'JPEG')
@@ -113,11 +113,11 @@ def main():
     global mtop
 
     mleft = 22
-    mtop = 17
+    mtop = 1
     width=128
     M = np.float32([[1,0,0],[0,1,mtop]])
 
-    fov=220
+    fov=195
     [xmap,ymap] = buildMap(width,width,fov,True)
     try:
         server = ThreadedHTTPServer(('localhost', 8080), CamHandler)
