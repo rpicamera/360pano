@@ -10,7 +10,6 @@ from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from SocketServer import ThreadingMixIn
 import StringIO
 import time
-capture=None
 
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -20,11 +19,12 @@ class CamHandler(BaseHTTPRequestHandler):
             self.end_headers()
             while True:
                 try:
-                    rc,img = capture.read()
-                    if not rc:
-                        continue
-                    imgRGB=cv2.cvtColor(img,cv2.COLOR_BGR2RGB)
-                    jpg = Image.fromarray(imgRGB)
+                    stream = io.BytesIO()
+                    with picamera.PiCamera() as camera:
+                        camera.start_preview()
+                        time.sleep(2)
+                        camera.capture(stream, format='jpeg')
+                    jpg = Image.open(stream)
                     tmpFile = StringIO.StringIO()
                     jpg.save(tmpFile,'JPEG')
                     self.wfile.write("--jpgboundary")
@@ -50,18 +50,11 @@ class ThreadedHTTPServer(ThreadingMixIn, HTTPServer):
     """Handle requests in a separate thread."""
 
 def main():
-    global capture
-    capture = cv2.VideoCapture(0)
-    capture.set(cv2.cv.CV_CAP_PROP_FRAME_WIDTH, 320); 
-    capture.set(cv2.cv.CV_CAP_PROP_FRAME_HEIGHT, 240);
-    capture.set(cv2.cv.CV_CAP_PROP_SATURATION,0.2);
-    global img
     try:
         server = ThreadedHTTPServer(('localhost', 8080), CamHandler)
         print "server started"
         server.serve_forever()
     except KeyboardInterrupt:
-        capture.release()
         server.socket.close()
 
 if __name__ == '__main__':
