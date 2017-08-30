@@ -22,12 +22,9 @@ class CamHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type','multipartx-mixed-replace; boundary=--jpgboundary')
             self.end_headers()
-            while True:
+            for foo in camera.capture_continuous(stream, 'jpeg'):
                 try:
-                    stream = io.BytesIO()
-                    with picamera.PiCamera() as camera:
-                    	camera.resolution = (342, 256)
-                        camera.capture(stream, format='jpeg')
+                    stream.seek(0)
                     # Construct a numpy array from the stream
                     data = np.fromstring(stream.getvalue(), dtype=np.uint8)
                     # "Decode" the image from the array, preserving colour
@@ -41,7 +38,9 @@ class CamHandler(BaseHTTPRequestHandler):
                     self.send_header('Content-length',str(tmpFile.len))
                     self.end_headers()
                     jpg.save(self.wfile,'JPEG')
-                    time.sleep(0.05)
+
+                    stream.seek(0)
+                    stream.truncate()
                 except KeyboardInterrupt:
                     break
             return
@@ -97,7 +96,14 @@ def buildMap(sz_src,sz_out,fov,qvert):
     return map_x, map_y
 
 def main():
-    global capture
+    global camera
+    global stream
+    camera = picamera.PiCamera()
+    camera.resolution = (171, 128)
+    camera.start_preview()
+    time.sleep(2)
+    stream = io.BytesIO()
+
     global img
     global xmap,ymap
     global width
@@ -107,7 +113,7 @@ def main():
 
     mleft = 22
     mtop = 17
-    width=256
+    width=128
     M = np.float32([[1,0,0],[0,1,mtop]])
 
     fov=220

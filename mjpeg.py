@@ -23,8 +23,8 @@ class CamHandler(BaseHTTPRequestHandler):
             for foo in camera.capture_continuous(stream, 'jpeg'):
                 try:
                     stream.seek(0)
-
                     jpg = Image.open(stream)
+                    
                     tmpFile = StringIO.StringIO()
                     jpg.save(tmpFile,'JPEG')
                     self.wfile.write("--jpgboundary")
@@ -32,7 +32,7 @@ class CamHandler(BaseHTTPRequestHandler):
                     self.send_header('Content-length',str(tmpFile.len))
                     self.end_headers()
                     jpg.save(self.wfile,'JPEG')
-                    #time.sleep(0.05)
+
                     stream.seek(0)
                     stream.truncate()
                 except KeyboardInterrupt:
