@@ -25,13 +25,13 @@ class CamHandler(BaseHTTPRequestHandler):
                 try:
                     stream.seek(0)
                     # Construct a numpy array from the stream
-                    data = np.fromstring(stream.getvalue(), dtype=np.uint8)
+                    #data = np.fromstring(stream.getvalue(), dtype=np.uint8)
                     # "Decode" the image from the array, preserving colour
-                    imgRGB = cv2.imdecode(data, 1)
-                    imgRGB = imgRGB[0:width,mleft:(mleft+width)]
-                    imgRGB = cv2.remap(imgRGB,xmap,ymap,cv2.INTER_LINEAR)
-                    jpg = Image.fromarray(imgRGB)
-
+                    #imgRGB = cv2.imdecode(data, 1)
+                    #imgRGB = imgRGB[0:width,mleft:(mleft+width)]
+                    #imgRGB = cv2.remap(imgRGB,xmap,ymap,cv2.INTER_LINEAR)
+                    #jpg = Image.fromarray(imgRGB)
+                    jpg = Image.open(stream)
                     tmpFile = StringIO.StringIO()
                     jpg.save(tmpFile,'JPEG')
                     self.wfile.write("--jpgboundary")
