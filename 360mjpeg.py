@@ -1,18 +1,18 @@
-#!usrbinpython
 '''
-    Author Igor Maculan - n3wtron@gmail.com
-    A Simple mjpg stream http server
+    Author: Craig Li - rpi.camera.studio@gmail.com
+    A 360 pano mjpg stream http server
 '''
 import io
+import cv2
 import time
 import picamera
-import cv2
-from PIL import Image
 import threading
-from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
-from SocketServer import ThreadingMixIn
-import StringIO
 import numpy as np
+
+from PIL            import Image
+from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
+from SocketServer   import ThreadingMixIn
+
 _debug=1
 
 class CamHandler(BaseHTTPRequestHandler):
@@ -24,9 +24,7 @@ class CamHandler(BaseHTTPRequestHandler):
             for foo in camera.capture_continuous(stream, 'jpeg'):
                 try:
                     stream.seek(0)
-                    # Construct a numpy array from the stream
                     data = np.fromstring(stream.getvalue(), dtype=np.uint8)
-                    # "Decode" the image from the array, preserving colour
                     imgRGB = cv2.imdecode(data, 1)
                     imgRGB = imgRGB[mtop:width,mleft:(mleft+width)]
                     imgRGB = cv2.remap(imgRGB,xmap,ymap,cv2.INTER_LINEAR)
@@ -113,6 +111,7 @@ def main():
 
     fov=float(195)
     xmap,ymap = buildMap(width,width,fov,False)
+    
     try:
         server = ThreadedHTTPServer(('localhost', 8080), CamHandler)
         print "server started"
