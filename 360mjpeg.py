@@ -13,7 +13,6 @@ from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from SocketServer import ThreadingMixIn
 import StringIO
 import numpy as np
-capture=None
 _debug=1
 
 class CamHandler(BaseHTTPRequestHandler):
@@ -29,8 +28,10 @@ class CamHandler(BaseHTTPRequestHandler):
                     data = np.fromstring(stream.getvalue(), dtype=np.uint8)
                     # "Decode" the image from the array, preserving colour
                     imgRGB = cv2.imdecode(data, 1)
+                    imgRGB = imgRGB[0:width,mleft:(mleft+width)]
                     imgRGB = cv2.remap(imgRGB,xmap,ymap,cv2.INTER_LINEAR)
                     jpg = Image.fromarray(imgRGB)
+
                     tmpFile = StringIO.StringIO()
                     jpg.save(tmpFile,'JPEG')
                     self.wfile.write("--jpgboundary")
@@ -123,7 +124,6 @@ def main():
         print "server started"
         server.serve_forever()
     except KeyboardInterrupt:
-        capture.release()
         server.socket.close()
 
 if __name__ == '__main__':
