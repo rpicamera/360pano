@@ -5,6 +5,9 @@
 '''
 import cv2
 from PIL import Image
+import io
+import time
+import picamera
 import threading
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from SocketServer import ThreadingMixIn
