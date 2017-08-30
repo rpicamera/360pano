@@ -26,7 +26,6 @@ class CamHandler(BaseHTTPRequestHandler):
                     with picamera.PiCamera() as camera:
                     	camera.resolution = (342, 256)
                         camera.start_preview()
-                        time.sleep(2)
                         camera.capture(stream, format='jpeg')
                     jpg = Image.open(stream)
                     tmpFile = StringIO.StringIO()
