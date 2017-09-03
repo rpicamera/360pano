@@ -9,3 +9,6 @@ using virtual env, then install the following
        sudo apt-get install python-opencv & sudo apt-get install libopencv-dev python-opencv
 
 *3: pip install opencv-contrib-python
+
+4: change the raspimjpeg by 
+   chmod a+x raspimjpeg
