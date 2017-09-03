@@ -5,7 +5,6 @@
 import io
 import cv2
 import time
-import picamera
 import threading
 import numpy as np
 
@@ -21,11 +20,11 @@ class CamHandler(BaseHTTPRequestHandler):
             self.send_response(200)
             self.send_header('Content-type','multipart/x-mixed-replace; boundary=--jpgboundary')
             self.end_headers()
-            for foo in camera.capture_continuous(stream, 'jpeg'):
+            while(True):
                 try:
                     stream.seek(0)
-                    data = np.fromstring(stream.getvalue(), dtype=np.uint8)
-                    imgRGB = cv2.imdecode(data, 1)
+                    imgRGB = cv2.imread('/dev/shm/mjpeg/cam.jpg')
+                    imgRGB = cv2.resize(imgRGB,(171,128))
                     imgRGB = imgRGB[mtop:width,mleft:(mleft+width)]
                     imgRGB = cv2.remap(imgRGB,xmap,ymap,cv2.INTER_LINEAR)
                     jpg = Image.fromarray(imgRGB)
@@ -92,12 +91,7 @@ def buildMap(sz_src,sz_out,fov,qvert):
     return map_x, map_y
 
 def main():
-    global camera
     global stream
-    camera = picamera.PiCamera()
-    camera.resolution = (171, 128)
-    camera.start_preview()
-    time.sleep(2)
     stream = io.BytesIO()
 
     global xmap,ymap
@@ -107,10 +101,10 @@ def main():
 
     mleft = 22
     mtop = 0
-    width=128
+    width= 128 
 
     fov=float(195)
-    xmap,ymap = buildMap(width,width,fov,False)
+    xmap,ymap = buildMap(width,width,fov,True)
     
     try:
         server = ThreadedHTTPServer(('localhost', 8080), CamHandler)

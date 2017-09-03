@@ -10,5 +10,6 @@ using virtual env, then install the following
 
 *3: pip install opencv-contrib-python
 
-4: change the raspimjpeg by 
-   chmod a+x raspimjpeg
+4: install RPi Webcam interface
+
+5: change the resolution to 171,128
