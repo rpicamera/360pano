@@ -1,18 +1,18 @@
-#!/usr/bin/python
 '''
-    Author: Igor Maculan - n3wtron@gmail.com
-    A Simple mjpg stream http server
+    Author: Craig Li - rpi.camera.studio@gmail.com
+    A Simple mjpg stream http server modified from Igor Maculan
 '''
-import cv2
-from PIL import Image
 import io
+import cv2
 import time
 import picamera
 import threading
+import numpy as np
+
+from PIL            import Image
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
-from SocketServer import ThreadingMixIn
-import StringIO
-import time
+from SocketServer   import ThreadingMixIn
+
 
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
