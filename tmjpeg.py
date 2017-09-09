@@ -11,7 +11,6 @@ from PIL            import Image
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from SocketServer   import ThreadingMixIn
 
-
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path.endswith('.mjpg'):
@@ -21,7 +20,12 @@ class CamHandler(BaseHTTPRequestHandler):
             while(True):
                 try:
                     file = cStringIO.StringIO(urllib.urlopen("http://raspberrypi.local/picam/cam.jpg").read())
-                    jpg = Image.open(file,'r')
+                    jpgslv = Image.open(file,'r')
+                    jpgmst = Image.open('/dev/shm/mjpeg/cam.jpg','r')
+                    width,height = jpgmst.size
+                    jpg = Image.new("RGB",(2*width,height))
+                    jpg.paste(jpgmst,(0,0))
+                    jpg.paste(jpgslv,(width,0))
                     tmpFile = StringIO.StringIO()
                     jpg.save(tmpFile,'JPEG')
                     self.wfile.write("--jpgboundary")
