@@ -22,7 +22,6 @@ class CamHandler(BaseHTTPRequestHandler):
             self.end_headers()
             while(True):
                 try:
-                    stream.seek(0)
                     imgRGB = cv2.imread('/dev/shm/mjpeg/cam.jpg')
                     imgRGB = cv2.resize(imgRGB,(171,128))
                     imgRGB = imgRGB[mtop:width,mleft:(mleft+width)]
@@ -34,8 +33,6 @@ class CamHandler(BaseHTTPRequestHandler):
                     self.end_headers()
                     jpg.save(self.wfile,'JPEG')
 
-                    stream.seek(0)
-                    stream.truncate()
                 except KeyboardInterrupt:
                     break
             return
@@ -91,9 +88,6 @@ def buildMap(sz_src,sz_out,fov,qvert):
     return map_x, map_y
 
 def main():
-    global stream
-    stream = io.BytesIO()
-
     global xmap,ymap
     global width
     global mleft
