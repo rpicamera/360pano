@@ -6,9 +6,10 @@ using virtual env, then install the following
    2.1: Mac or Windows(haven't been tested)
        pip install opencv-python   /   
    2.2: Raspberry Pi
-       sudo apt-get install python-opencv & sudo apt-get install libopencv-dev python-opencv
+       sudo apt-get install python-opencv
+       sudo apt-get install libopencv-dev
 
-*3: pip install opencv-contrib-python
+3: (optional) pip install opencv-contrib-python
 
 4: install RPi Webcam interface
 
