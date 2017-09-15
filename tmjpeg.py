@@ -11,6 +11,8 @@ from PIL            import Image
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from SocketServer   import ThreadingMixIn
 
+ip="192.168.1.7"
+
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
         if self.path.endswith('.mjpg'):
@@ -42,7 +44,7 @@ class CamHandler(BaseHTTPRequestHandler):
             self.send_header('Content-type','text/html')
             self.end_headers()
             self.wfile.write('<html><head></head><body>')
-            self.wfile.write('<img src="http://192.168.1.6:8080/cam.mjpg"/>')
+            self.wfile.write('<img src="http://'+ip+':8080/cam.mjpg"/>')
             self.wfile.write('</body></html>')
             return
 
@@ -54,7 +56,7 @@ def main():
     stream = io.BytesIO()
 
     try:
-        server = ThreadedHTTPServer(('192.168.1.6', 8080), CamHandler)
+        server = ThreadedHTTPServer((ip, 8080), CamHandler)
         print "server started"
         server.serve_forever()
     except KeyboardInterrupt:

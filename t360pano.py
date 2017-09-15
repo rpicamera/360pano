@@ -1,20 +1,16 @@
-'''
-    Author: Craig Li - rpi.camera.studio@gmail.com
-    A 360 pano mjpg stream http server
-'''
 import io
 import cv2
 import time
 import threading
 import numpy as np
-import StringIO
+import urllib,StringIO
 
 from PIL            import Image
 from BaseHTTPServer import BaseHTTPRequestHandler,HTTPServer
 from SocketServer   import ThreadingMixIn
 
 _debug=1
-ip = "192.168.1.7"
+ip="192.168.1.7"
 
 class CamHandler(BaseHTTPRequestHandler):
     def do_GET(self):
@@ -24,13 +20,25 @@ class CamHandler(BaseHTTPRequestHandler):
             self.end_headers()
             while(True):
                 try:
-                    imgRGB = cv2.imread('/dev/shm/mjpeg/cam.jpg')
-                    imgRGB = cv2.resize(imgRGB,(171,128))
-                    imgRGB = imgRGB[mtop:width,mleft:(mleft+width)]
-                    imgRGB = cv2.remap(imgRGB,xmap,ymap,cv2.INTER_LINEAR)
+                    imgMstRGB = cv2.imread('/dev/shm/mjpeg/cam.jpg')
+                    imgMstRGB = cv2.resize(imgMstRGB,(171,128))
+                    imgMstRGB = imgMstRGB[mtop:width,mleft:(mleft+width)]
+                    imgMstRGB = cv2.remap(imgMstRGB,xmap,ymap,cv2.INTER_LINEAR)
+
+                    resp = urllib.urlopen("http://raspberrypi.local/picam/cam.jpg")
+                    image = np.asarray(bytearray(resp.read()), dtype="uint8")
+                    imgSlvRGB = cv2.imdecode(image, cv2.IMREAD_COLOR)
+                    imgSlvRGB = cv2.resize(imgSlvRGB,(171,128))
+                    imgSlvRGB = imgSlvRGB[mtop:width,mleft:(mleft+width)]
+                    imgSlvRGB = cv2.remap(imgSlvRGB,xmap,ymap,cv2.INTER_LINEAR)
+                    
+                    imgRGB = imgSlvRGB[73:146,0:width]+imgMstRGB[73:219,0:width]
+                    imgRGB = imgRGB[0:219,0:width]+imgSlvRGB[73:146,0:width]
+
                     jpg = Image.fromarray(imgRGB)
                     tmpFile = StringIO.StringIO()
                     jpg.save(tmpFile,'JPEG')
+
                     self.wfile.write("--jpgboundary")
                     self.send_header('Content-type','image/jpeg')
                     self.send_header('Content-length',str(tmpFile.len))
@@ -72,7 +80,7 @@ def buildMap(sz_src,sz_out,fov,qvert):
         Spz       = np.sin(Phi)
 
         R         = sz_src * np.arctan(np.sqrt(Spx*Spx+(Spz*Spz)[:].reshape(sz_out,1))/(Spy+1e-20))/vfov
-        # Fixing arctan range 
+        # Fixing arctan range
         halfOutSz = int(sz_out/2)
         aPhiMod   = np.append(np.append(np.ones(halfOutSz),np.zeros(sz_out-1)),np.ones(halfOutSz+1))*sz_src*180/fov
         R         = (R + aPhiMod) * np.append(np.ones(sz_out-1)*-1,np.ones(sz_out+1))   # fixed atan problem
@@ -99,12 +107,11 @@ def main():
 
     mleft = 15
     mtop = 0
-    atop = 13
     width= 146
 
     fov=float(220)
     xmap,ymap = buildMap(width,width,fov,True)
-    
+
     try:
         server = ThreadedHTTPServer((ip, 8080), CamHandler)
         print "server started"
