@@ -142,12 +142,12 @@ def main():
     ml       = 145    # modified pixels from left
     mt       = 0      # modified pixels from top
     sl       = 245
-    fov      = float(220)
+    fov      = float(200)
 
     # square the image, better to get full circular image
     rows= slave_img.shape
     amtop = 95        # modified pixels from top
-    astop = 110
+    astop = 80
     ambottom = sz_src-amtop-rows[0]
     asbottom = sz_src-astop-rows[0]
     if _debug>=1:
@@ -178,7 +178,7 @@ def main():
         cv2.imwrite("convertpanoslave.png",slave_img)
         cv2.imwrite("convertpanomaster.png",master_img)
 
-    pano_img = smoothBound(master_img,slave_img,sz_out,sz_out,40)
+    pano_img = smoothBound(master_img,slave_img,sz_out,sz_out,50)
     cv2.imwrite("pano.png",pano_img)
 
 if __name__ == "__main__":
