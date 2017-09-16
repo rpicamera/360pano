@@ -28,6 +28,12 @@ Create the pano from the my 2PiView kit using Python code, detail in genpano.py.
   <img src="https://github.com/rpicamera/360pano/blob/master/pano.png" width="350"/>
 </p>
 
+This is the view from the phone. 
+
+<p align="center">
+  <img src="https://github.com/rpicamera/360pano/blob/master/VRExample.png" width="350"/>
+</p>
+
 Here is my 2PiView kit:
 
 <p align="center">
