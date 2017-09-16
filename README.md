@@ -22,9 +22,23 @@ And here is the pano image after remapping the above squared circular image
 
 ## Step 2:
 
+Create the pano from the my 2PiView kit using Python code, detail in genpano.py. And here is the example
+
+<p align="center">
+  <img src="https://github.com/rpicamera/360pano/blob/master/pano.png" width="350"/>
+</p>
+
+Here is my 2PiView kit:
+
+<p align="center">
+  <img src="https://github.com/rpicamera/360pano/blob/master/2piviewkit.png" width="350"/>
+</p>
+
+## Step 3:
+
 MJPEG server
 
-### 2.1: simple html server to prove that it works
+### 3.1: simple html server to prove that it works
 
 mjpeg.py shows the basic python http mjpeg server, modified from https://gist.github.com/n3wtron/4624820 
 My version uses the picamera to capture the image. 
@@ -33,5 +47,6 @@ My version uses the picamera to capture the image.
 
 These two methods have large time lag because of IO I believe.
 
-### 2.2: Django mjpeg server, implement some functionalities, such as take picture, download picture, preview
+### 3.2: Django mjpeg server, implement some functionalities, such as take picture, download picture, preview
+
 
