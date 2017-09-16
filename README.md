@@ -31,7 +31,7 @@ Create the pano from the my 2PiView kit using Python code, detail in genpano.py.
 Here is my 2PiView kit:
 
 <p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/2piviewkit.png" width="350"/>
+  <img src="https://github.com/rpicamera/360pano/blob/master/2PiViewKit.jpg" width="350"/>
 </p>
 
 ## Step 3:
