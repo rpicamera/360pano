@@ -7,10 +7,8 @@
 # by testing, loading mapx and mapy is 3 times faster than live build
 
 import sys, getopt
-import cv2
 import numpy as np
 import time
-import re
 
 _debug=2
 
@@ -77,7 +75,11 @@ def main():
         qvert = False
 
     # build map
+    mapstart = int(round(time.time() * 1000))
     mapx,mapy = buildMap(sz_src,sz_out,fov,qvert)
+    mapstop = int(round(time.time() * 1000))
+    if _debug>=1:
+        print("Build map cost %d msec" % (mapstop-mapstart))
 
     np.save('mapx',mapx)
     np.save('mapy',mapy)
