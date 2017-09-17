@@ -65,13 +65,13 @@ def main():
     in_sz_src   = input('Source image size:')
     in_sz_out   = input('Output image size:')
     in_fov      = input('Fov:')
-    in_qvert    = input('Position(H/V):')
+    in_qvert    = input('Position(V(0)/H(1)):')
 
     sz_src=int(in_sz_src)
     sz_out=int(in_sz_out)
     fov=float(in_fov)
     qvert=True
-    if in_qvert=='H':
+    if in_qvert==1:
         qvert = False
 
     # build map

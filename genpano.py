@@ -10,10 +10,23 @@ import sys, getopt
 import cv2
 import numpy as np
 import requests,time
-from   urllib import urlopen
+from   urllib  import urlopen
+from   pathlib import Path
 import re
 
 _debug=2
+
+def getmap(sz_src,sz_out,fov,qvert,qbmap):
+    map_file = Path('mapx.npy')
+
+    if not map_file.is_file() or qbmap:
+        map_x,map_y = buildMap(sz_src,sz_out,fov,qvert)
+        return map_x,map_y
+    
+    print('Load map...')
+    map_x = np.load('mapx.npy')
+    map_y = np.load('mapy.npy')
+    return map_x,map_y
 
 """
 input:
@@ -79,6 +92,7 @@ def smoothBound(img1, img2, w, h, delta):
     img2pi = img2[0:h, int(0.5*w):int(1.5*w)] 
     rst = np.concatenate((img1pi, img2pi), axis=1)
     # image matrix: height * width
+    print('Smooth Boundary...')
     for j in range(w-delta,w+delta):
         weight = 1-0.5*(np.sin(float(j-w)/float(delta)*np.pi/2.0)+1)
         for i in range(0,h):
@@ -168,7 +182,7 @@ def main():
         print("cropped image size: %d*%d pixels " % (sz_src,sz_src))
 
     # build map
-    mapx,mapy = buildMap(sz_src,sz_out,fov,True)
+    mapx,mapy = getmap(sz_src,sz_out,fov,True,False)
 
     # apply map and output image
     slave_img  = unwarp(slave_img,mapx,mapy)
