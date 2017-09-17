@@ -88,22 +88,23 @@ def crop(img,left,top,sz):
     return crop_img
 
 def smoothBound(img1, img2, w, h, delta):
-    img1pi = img1[0:h, int(0.5*w):int(1.5*w)] 
-    img2pi = img2[0:h, int(0.5*w):int(1.5*w)] 
-    rst = np.concatenate((img1pi, img2pi), axis=1)
-    # image matrix: height * width
-    print('Smooth Boundary...')
-    for j in range(w-delta,w+delta):
-        weight = 1-0.5*(np.sin(float(j-w)/float(delta)*np.pi/2.0)+1)
-        for i in range(0,h):
-            #  img1 X img2
-            rst[i,j] = weight*img1[i,j+int(0.5*w)]+(1.0-weight)*img2[i,j-int(0.5*w)]
-            #  img2 X img1
-            t = j-w
-            if j<w:
-                t=j+w
-            rst[i,t] = (1.0-weight)*img1[i,j-int(0.5*w)]+weight*img2[i,j+int(0.5*w)]
+    filer_file = Path('vfilter.npy')
+    vfilter=0
+    if filer_file.is_file():
+        vfilter = np.load('vfilter.npy')
+    else:
+        sz_out = w
+        vfilter = np.ones((1,2*sz_out,1),np.float32)
+        for i in range(int(0.5*sz_out-delta),int(0.5*sz_out+delta)):
+            vfilter[0,i,0] = 0.5*np.cos(float(i-(0.5*sz_out+delta))/float(delta)*np.pi/2.0)+0.5
+        for i in range(int(1.5*sz_out-delta),int(1.5*sz_out+delta)):
+            vfilter[0,i,0] = 0.5*np.cos(float(i-(1.5*sz_out-delta))/float(delta)*np.pi/2.0)+0.5
 
+    img1 = np.multiply(img1,vfilter)
+    img2 = np.multiply(img2,vfilter)
+    leftsmooth = img1[0:h,int(1.5*w-delta):int(1.5*w+delta)] + img2[0:h,int(0.5*w-delta):int(0.5*w+delta)]
+    rightsmooth = img1[0:h,int(0.5*w-delta):int(0.5*w+delta)] + img2[0:h,int(1.5*w-delta):int(1.5*w+delta)]
+    rst = np.concatenate((img1[0:h,w:int(1.5*w-delta)], leftsmooth,img2[0:h,int(0.5*w+delta):int(1.5*w-delta)],rightsmooth,img1[0:h,int(0.5*w+delta):w]), axis=1)
     return rst
 
 def main():

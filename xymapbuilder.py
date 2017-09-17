@@ -66,10 +66,12 @@ def main():
     in_sz_out   = input('Output image size:')
     in_fov      = input('Fov:')
     in_qvert    = input('Position(V(0)/H(1)):')
+    in_delta    = input('Boundary smooth delta:')
 
     sz_src=int(in_sz_src)
     sz_out=int(in_sz_out)
     fov=float(in_fov)
+    delta = int(in_delta)
     qvert=True
     if in_qvert==1:
         qvert = False
@@ -86,6 +88,18 @@ def main():
 
     if _debug >= 1:
         print('Map saved as mapx, mapy')
+
+    vfilter = np.ones((1,2*sz_out,1),np.float32)
+    for i in range(int(0.5*sz_out-delta),int(0.5*sz_out+delta)):
+        vfilter[0,i,0] = 0.5*np.cos(float(i-(0.5*sz_out+delta))/float(delta)*np.pi/2.0)+0.5
+    for i in range(int(1.5*sz_out-delta),int(1.5*sz_out+delta)):
+        vfilter[0,i,0] = 0.5*np.cos(float(i-(1.5*sz_out-delta))/float(delta)*np.pi/2.0)+0.5
+
+    np.save('vfilter',vfilter)
+
+    if _debug >= 1:
+        print('Boundary filer saved as vfilter')
+
 
 if __name__ == "__main__":
    main()
