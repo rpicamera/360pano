@@ -14,7 +14,7 @@ from   urllib  import urlopen
 from   pathlib import Path
 import re
 
-_debug=2
+_debug=1
 
 def getmap(sz_src,sz_out,fov,qvert,qbmap):
     map_file = Path('mapx.npy')
@@ -113,14 +113,16 @@ def main():
     requests.get("http://127.0.0.1/picam/cmd_pipe.php?cmd=im");
     requests.get("http://raspberrypi.local/picam/cmd_pipe.php?cmd=im");
 
-    time.sleep(2)
+    time.sleep(1)
+
+    paternsize = 1000
 
     slave_media_dir  = 'http://raspberrypi.local/picam/media/'
     master_media_dir = 'http://127.0.0.1/picam/media/'
     urlpath = urlopen(slave_media_dir)
     string = urlpath.read().decode('utf-8')
     patern = re.compile('([^\"\']*\.jpg)');
-    filelist = patern.findall(string)
+    filelist = patern.findall(string[len(string)-paternsize:])
     filename = filelist[len(filelist)-4]
     rsp = urlopen(slave_media_dir+filename)
     slave_image = np.array(bytearray(rsp.read()), dtype=np.uint8)
@@ -134,8 +136,7 @@ def main():
 
     urlpath = urlopen(master_media_dir)
     string = urlpath.read().decode('utf-8')
-    patern = re.compile('([^\"\']*\.jpg)');
-    filelist = patern.findall(string)
+    filelist = patern.findall(string[len(string)-paternsize:])
     filename = filelist[len(filelist)-4]
     rsp = urlopen(master_media_dir+filename)
     master_image = np.array(bytearray(rsp.read()), dtype=np.uint8)
@@ -193,7 +194,7 @@ def main():
         cv2.imwrite("img/convertpanoslave.png",slave_img)
         cv2.imwrite("img/convertpanomaster.png",master_img)
 
-    pano_img = smoothBound(master_img,slave_img,sz_out,sz_out,50)
+    pano_img = smoothBound(master_img,slave_img,sz_out,sz_out,30)
     cv2.imwrite("img/newpano.png",pano_img)
 
 if __name__ == "__main__":

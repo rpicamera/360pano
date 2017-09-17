@@ -9,6 +9,7 @@
 import sys, getopt
 import numpy as np
 import time
+from pathlib import Path
 
 _debug=2
 
@@ -62,11 +63,25 @@ def buildMap(sz_src,sz_out,fov,qvert):
     return map_x, map_y
 
 def main():
-    in_sz_src   = input('Source image size:')
-    in_sz_out   = input('Output image size:')
-    in_fov      = input('Fov:')
-    in_qvert    = input('Position(V(0)/H(1)):')
-    in_delta    = input('Boundary smooth delta:')
+    conf_file = Path('config.txt')
+    in_sz_src=0
+    in_sz_out=0
+    in_fov = 0
+    in_qvert=0
+    in_delta=0
+    if conf_file.is_file():
+        f = open('config.txt','r')
+        in_sz_src = f.readline()
+        in_sz_out = f.readline()
+        in_fov    = f.readline()
+        in_qvert  = f.readline()
+        in_delta  = f.readline()
+    else:
+        in_sz_src   = input('Source image size:')
+        in_sz_out   = input('Output image size:')
+        in_fov      = input('Fov:')
+        in_qvert    = input('Position(V(0)/H(1)):')
+        in_delta    = input('Boundary smooth delta:')
 
     sz_src=int(in_sz_src)
     sz_out=int(in_sz_out)
