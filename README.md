@@ -7,17 +7,17 @@ Covert circular image into pano image. And use github page to show the 360 pano 
 This is the originial image, the left most circular to the left boundary is about 220 pixels.
 
 <p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/test.jpg" width="350"/>
+  <img src="https://github.com/rpicamera/360pano/blob/master/img/test.jpg" width="350"/>
 </p>
 
 Here is the image after crop and rotation
 <p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/resizecrpped.png" width="350"/>
+  <img src="https://github.com/rpicamera/360pano/blob/master/img/resizecrpped.png" width="350"/>
 </p>
 
 And here is the pano image after remapping the above squared circular image
 <p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/convertpanotest.png" width="350"/>
+  <img src="https://github.com/rpicamera/360pano/blob/master/img/convertpanotest.png" width="350"/>
 </p>
 
 ## Step 2:
@@ -25,19 +25,19 @@ And here is the pano image after remapping the above squared circular image
 Create the pano from the my 2PiView kit using Python code, detail in genpano.py. And here is the example
 
 <p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/pano.png" width="350"/>
+  <img src="https://github.com/rpicamera/360pano/blob/master/img/pano.png" width="350"/>
 </p>
 
 This is the view from the phone. 
 
 <p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/VRExample.png" width="350"/>
+  <img src="https://github.com/rpicamera/360pano/blob/master/img/VRExample.png" width="350"/>
 </p>
 
 Here is my 2PiView kit:
 
 <p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/2PiViewKit.jpg" width="350"/>
+  <img src="https://github.com/rpicamera/360pano/blob/master/img/2PiViewKit.jpg" width="350"/>
 </p>
 
 ## Step 3:
