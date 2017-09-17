@@ -193,7 +193,7 @@ def main():
         cv2.imwrite("convertpanomaster.png",master_img)
 
     pano_img = smoothBound(master_img,slave_img,sz_out,sz_out,50)
-    cv2.imwrite("pano.png",pano_img)
+    cv2.imwrite("newpano.png",pano_img)
 
 if __name__ == "__main__":
    main()
