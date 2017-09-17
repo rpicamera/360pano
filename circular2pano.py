@@ -120,7 +120,7 @@ def crop(img,left,top,sz):
 
 
 def main():
-    imgFile = 'test.jpg'
+    imgFile = 'img/test.jpg'
 
     if _debug>=1:
         print('Front file is: ', imgFile)
@@ -149,7 +149,7 @@ def main():
     img=np.rot90(img)
     
     if _debug>=2:
-        cv2.imwrite("resizecrpped.png",img)
+        cv2.imwrite("img/resizecrpped.png",img)
 
     if _debug>=1:
         print("cropped image size: %d*%d pixels " % (sz_src,sz_src))
@@ -159,7 +159,7 @@ def main():
 
     # apply map and output image
     img = unwarp(img,mapx,mapy)
-    cv2.imwrite("convertpanotest.png",img)
+    cv2.imwrite("img/convertpanotest.png",img)
 
 
 if __name__ == "__main__":

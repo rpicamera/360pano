@@ -12,7 +12,7 @@ This is the originial image, the left most circular to the left boundary is abou
 
 Here is the image after crop and rotation
 <p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/img/resizecrpped.png" width="350"/>
+  <img src="https://github.com/rpicamera/360pano/blob/master/img/resizecroped.png" width="350"/>
 </p>
 
 And here is the pano image after remapping the above squared circular image

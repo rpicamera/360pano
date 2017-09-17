@@ -126,7 +126,7 @@ def main():
 
     if _debug>=2:
         print(slave_media_dir + filename)
-        output = open("slave.jpg","wb")
+        output = open("img/slave.jpg","wb")
         rsc = urlopen(slave_media_dir+filename)
         output.write(rsc.read())
         output.close()
@@ -141,7 +141,7 @@ def main():
 
     if _debug>=2:
         print(master_media_dir+filename+'|')
-        output = open("master.jpg","wb")
+        output = open("img/master.jpg","wb")
         rsc = urlopen(master_media_dir+filename)
         output.write(rsc.read())
         output.close()
@@ -175,8 +175,8 @@ def main():
     master_img = cv2.warpAffine(master_img,MM,(sz_src,sz_src))
 
     if _debug>=2:
-        cv2.imwrite("resizecrpped_slave.png",slave_img)
-        cv2.imwrite("resizecrpped_master.png",master_img)
+        cv2.imwrite("img/resizecrpped_slave.png",slave_img)
+        cv2.imwrite("img/resizecrpped_master.png",master_img)
 
     if _debug>=1:
         print("cropped image size: %d*%d pixels " % (sz_src,sz_src))
@@ -189,11 +189,11 @@ def main():
     master_img = unwarp(master_img,mapx,mapy)
     
     if _debug>=2:
-        cv2.imwrite("convertpanoslave.png",slave_img)
-        cv2.imwrite("convertpanomaster.png",master_img)
+        cv2.imwrite("img/convertpanoslave.png",slave_img)
+        cv2.imwrite("img/convertpanomaster.png",master_img)
 
     pano_img = smoothBound(master_img,slave_img,sz_out,sz_out,50)
-    cv2.imwrite("newpano.png",pano_img)
+    cv2.imwrite("img/newpano.png",pano_img)
 
 if __name__ == "__main__":
    main()

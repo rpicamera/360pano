@@ -102,7 +102,7 @@ def main():
     atop = 13
     width= 146
 
-    fov=float(220)
+    fov=float(200)
     xmap,ymap = buildMap(width,width,fov,True)
     
     try:
