@@ -149,7 +149,7 @@ def main():
     img=np.rot90(img)
     
     if _debug>=2:
-        cv2.imwrite("img/resizecrpped.png",img)
+        cv2.imwrite("img/resizecroped.png",img)
 
     if _debug>=1:
         print("cropped image size: %d*%d pixels " % (sz_src,sz_src))
