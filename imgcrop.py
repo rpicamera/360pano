@@ -11,7 +11,7 @@ _debug=2
 def main():
     left=0
     top=0
-    size=input('size=')
+    size=0
     imgFile = 'img/test.jpg'
 
     if _debug>=1:
@@ -19,15 +19,15 @@ def main():
 
     img = cv2.imread(imgFile,cv2.IMREAD_COLOR)
 
-    while(left>0):
-        left = input('left=')
-        top = input('top=')
-        cv2.circle(img, (int(0.5*size),int(0.5*size)), int(0.5*size), (0,0,255), 5)
-        cv2.imshow('image',img)
-        cv2.waitKey(2)
+    while(left>=0):
+        left = int(input('left='))
+        top  = int(input('top='))
+        size = int(input('size='))
+        tmpimg = img
+        cv2.circle(tmpimg, (int(0.5*size)+left,int(0.5*size)+top), int(0.5*size), (0,0,255), 5)
+        cv2.imwrite("img/helpcroped.png",tmpimg)
 
 
 
 if __name__ == "__main__":
    main()
-
