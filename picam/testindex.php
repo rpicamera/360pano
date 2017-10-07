@@ -24,7 +24,7 @@
       <img style="width:320" id="mjpeg_left">
     </div>
 
-    <form action="pano.php" method="POST">
+    <form action="testindex.php" method="POST">
       <h1>
         <button class='btn btn-primary' type='submit' name='shoot'>shoot</button>
         <br>
