@@ -42,17 +42,32 @@ Here is my 2PiView kit:
 
 ## Step 3:
 
-MJPEG server
+Pano server
 
-### 3.1: simple html server to prove that it works
+### 3.1 copy files
 
-mjpeg.py shows the basic python http mjpeg server, modified from https://gist.github.com/n3wtron/4624820 
-My version uses the picamera to capture the image. 
+copy all files in _/picam_ except for _aframe.min.js_ into the rpi-web-cam-interface directory.
 
-360mjpeg.py added the pano converting to the simple http mjpeg server.
+copy _aframe.min.js_ to _rpi-web-cam-interface/js/aframe.min.js_
 
-These two methods have large time lag because of IO I believe.
+create the directory named _img_
 
-### 3.2: Django mjpeg server, implement some functionalities, such as take picture, download picture, preview
+copy _../img/panowd.jpg_ into _rpi-web-cam-interface/img_
+
+return to _/var/www_ and run the command:
+
+    sudo chown -R www-data:www-data <rpi-web-cam-interface>
+
+go to directory and test the python setting by
+
+    python genpano.py
+    
+wait for it finished, go to _img_ and check is there a new file. If passed the test, it means it worked. 
+
+### 3.2 test the whole thing
+
+the address for taking photos is : _ip/rpi-web-cam-interface/panoindex.php_
+..              download photos is: _ip/rpi-web-cam-interface/downloadpano.php_
+..              preview photos is: _ip/rpi-web-cam-interface>/previewpano.php_
 
 
