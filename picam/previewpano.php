@@ -1,9 +1,9 @@
 <?php
   define('MEDIA_DIR','img/');
   $filename = "newpano.png";
-  if(isset($_POST['previewpano']))
+  if(isset($_GET['previewpano']))
   {
-      $filename = $_POST['previewpano'];
+      $filename = $_GET['previewpano'];
   }
 ?>
 
