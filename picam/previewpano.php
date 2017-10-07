@@ -10,7 +10,7 @@
 <!doctype html>
 <html>
   <head>
-    <script src="https://aframe.io/releases/0.6.1/aframe.min.js"></script>
+    <script src="js/aframe.min.js"></script>
     <title>Pano Viewer</title>
   </head>
   <body>
