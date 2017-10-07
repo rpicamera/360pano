@@ -60,14 +60,16 @@ return to _/var/www_ and run the command:
 
 go to directory and test the python setting by
 
-    python genpano.py
+    sudo python genpano.py
     
 wait for it finished, go to _img_ and check is there a new file. If passed the test, it means it worked. 
 
 ### 3.2 test the whole thing
 
 the address for taking photos is : _ip/rpi-web-cam-interface/panoindex.php_
-..              download photos is: _ip/rpi-web-cam-interface/downloadpano.php_
-..              preview photos is: _ip/rpi-web-cam-interface>/previewpano.php_
+
+the address for download photos is: _ip/rpi-web-cam-interface/downloadpano.php_
+
+the address for preview photos is: _ip/rpi-web-cam-interface>/previewpano.php_
 
 
