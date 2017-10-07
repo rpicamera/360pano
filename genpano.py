@@ -153,17 +153,17 @@ def main():
     print(slave_img.shape)
     print(master_img.shape)
  
-    sz_src   = 2200   # source image size in pixel after squaring
+    sz_src   = 2190   # source image size in pixel after squaring
     sz_out   = 1024   # output pano image hight in pixel
-    ml       = 145    # modified pixels from left
+    ml       = 155    # modified pixels from left
     mt       = 0      # modified pixels from top
-    sl       = 245
+    sl       = 250
     fov      = float(200)
 
     # square the image, better to get full circular image
     rows= slave_img.shape
-    amtop = 95        # modified pixels from top
-    astop = 80
+    amtop = 100        # modified pixels from top
+    astop = 105
     ambottom = sz_src-amtop-rows[0]
     asbottom = sz_src-astop-rows[0]
     if _debug>=1:
@@ -184,7 +184,7 @@ def main():
         print("cropped image size: %d*%d pixels " % (sz_src,sz_src))
 
     # build map
-    mapx,mapy = getmap(sz_src,sz_out,fov,True,False)
+    mapx,mapy = getmap(sz_src,sz_out,fov,True,True)
 
     # apply map and output image
     slave_img  = unwarp(slave_img,mapx,mapy)

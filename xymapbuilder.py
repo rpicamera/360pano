@@ -63,7 +63,7 @@ def buildMap(sz_src,sz_out,fov,qvert):
     return map_x, map_y
 
 def main():
-    conf_file = Path('config.txt')
+    conf_file = Path('cconfig.txt')
     in_sz_src=0
     in_sz_out=0
     in_fov = 0
