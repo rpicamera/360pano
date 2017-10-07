@@ -1,6 +1,6 @@
 <?php
   define('MEDIA_DIR','img/');
-  $filename = "newpano.jpg";
+  $filename = "panowm.jpg";
   if(isset($_GET['previewpano']))
   {
       $filename = $_GET['previewpano'];
