@@ -9,7 +9,7 @@
 
    function startShooting() {
       writeLog("start take pano pictures");
-      exec("python test.py");
+      exec("python genpano.py");
       writeLog("Photo taking finished");
    }
 ?>

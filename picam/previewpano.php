@@ -1,5 +1,5 @@
 <?php
-  define('MEDIA_DIR','192.168.1.10/picam/img/');
+  define('MEDIA_DIR','img/');
   $filename = "newpano.png";
   if(isset($_POST['previewpano']))
   {
