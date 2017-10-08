@@ -12,7 +12,7 @@
    </head>
    <body>
       <div class="container-fluid">
-         <input class='btn btn-primary' onclick=\"window.location.href='panoindex.php'\" value='Back'>
+         <input class='btn btn-primary' onclick="window.location.href='panoindex.php' " value='Back'>
          <hr>
          <form action="previewpano.php" method="GET">
            <table style="width:100%">
