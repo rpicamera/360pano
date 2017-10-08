@@ -18,20 +18,24 @@
 <html>
   <head>
     <title>Dual Camera</title>
+    <link rel="stylesheet" href="css/style_minified.css" />
+    <script src="js/style_minified.js"></script>
   </head>
-  <body style='background-color:black'>
-    <div id="background" onclick="toggle_fullscreen(this);">
-      <img style="width:320" id="mjpeg_left">
-      <img style="width:320" id="mjpeg_right">
-    </div>
-
-    <form action="panoindex.php" method="POST">
-      <h1>
-        <button class='btn btn-primary' type='submit' name='shoot'>shoot</button>
-        <br>
-      </h1>
-    </form> 
-    <input  onclick="window.location.href = 'downloadpano.php' " class="btn btn-default" value="Download" >
+  <body>
+    <div class="container-fluid">
+      <div id="background" onclick="toggle_fullscreen(this);">
+        <img style="width:320" id="mjpeg_left">
+        <img style="width:320" id="mjpeg_right">
+        <hr>
+        <table style='margin-left: 80px;' >
+          <form action="panoindex.php" method="POST">
+            <td><button style='margin-left:10px;' class='btn btn-primary' type='submit' name='shoot'>shoot</button></td>
+            <br>
+          </form> 
+          <td><input style='margin-left:20px' onclick="window.location.href = 'downloadpano.php' " class="btn btn-default" value="Download" ></td>
+        </table>
+        <hr>
+      </div>
 
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script type="text/javascript">
@@ -135,6 +139,7 @@
 
       }
     </script>
+  </div>
   </body>
 </html>
 
