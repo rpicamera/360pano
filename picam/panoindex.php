@@ -31,7 +31,7 @@
         <br>
       </h1>
     </form> 
-    <a href="downloadpano.php" class="btn btn-default">Download</a>
+    <input  onclick="window.location.href = 'downloadpano.php' " class="btn btn-default" value="Download" >
 
     <script src="http://code.jquery.com/jquery-1.11.1.js"></script>
     <script type="text/javascript">

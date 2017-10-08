@@ -24,11 +24,11 @@
                       if($file!="." && $file!=".." && $file[0]=="t")
                       {  
                          echo "<tr>";
-                         echo "<td><img src='192.168.1.10/picam/img/$file' width='100'></td>";
+                         echo "<td><img src='img/$file' width='100'></td>";
                          $ffile = substr($file,6);
-                         echo "<td><input class='btn btn-primary' onclick=\"window.location.href='192.168.1.10/picam/img/$ffile'\">download</input></td>";
+                         echo "<td><input class='btn btn-primary' onclick=\"window.location.href='img/$ffile'\" value='download'></td>";
                          echo "<td><button class='btn btn-primary' type='submit' name='previewpano' value='$ffile'>preview</button></td>";
-                         echo "</tr>"
+                         echo "</tr>";
                       }
                    }
                 }
