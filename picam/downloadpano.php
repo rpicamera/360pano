@@ -20,9 +20,12 @@
                 {
                    foreach($files as $file) 
                    {
-                      if($file!="." && $file!="..")
+                      if($file!="." && $file!=".." && $file[0]=="t")
                       {
-                         echo "<tr><button class='btn btn-primary' type='submit' name='previewpano' value='$file'>$file</button></tr>";
+                         echo "<img src='192.168.1.10/picam/img/$file>";
+                         $ffile = substr($file,6);
+                         echo "<input class='btn btn-primary' onclick=\"window.location.href='192.168.1.10/picam/img/$ffile'\">download</input>";
+                         echo "<button class='btn btn-primary' type='submit' name='previewpano' value='$ffile'>preview</button>";
                       }
                    }
                 }
