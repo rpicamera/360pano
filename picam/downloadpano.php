@@ -24,7 +24,7 @@
                       if($file!="." && $file!=".." && $file[0]=="t")
                       {  
                          echo "<tr>";
-                         echo "<td><img src='192.168.1.10/picam/img/$file></td>";
+                         echo "<td><img src='192.168.1.10/picam/img/$file' width='100'></td>";
                          $ffile = substr($file,6);
                          echo "<td><input class='btn btn-primary' onclick=\"window.location.href='192.168.1.10/picam/img/$ffile'\">download</input></td>";
                          echo "<td><button class='btn btn-primary' type='submit' name='previewpano' value='$ffile'>preview</button></td>";
