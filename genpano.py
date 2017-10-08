@@ -195,8 +195,12 @@ def main():
         cv2.imwrite("img/convertpanomaster.png",master_img)
 
     pano_img = smoothBound(master_img,slave_img,sz_out,sz_out,30)
-    img_name = "img/pano_"+ strftime(%Y%m%d_%H%M%S,time.gmtime())+".png"
-    cv2.imwrite(,pano_img)
+    time_name = time.strftime(%Y%m%d_%H%M%S,time.gmtime())
+    img_name = "img/pano_"+ time_name +".png"
+    thumb_name = "img/thumb_pano_"+time_name+".png"
+    cv2.imwrite(img_name,pano_img)
+    thumb_img = cv2.resize(pano_img,(100, 50)) 
+    cv2.imwrite(thumb_name,thumb_img)
 
 if __name__ == "__main__":
    main()
