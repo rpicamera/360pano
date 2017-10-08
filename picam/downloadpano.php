@@ -25,7 +25,7 @@
                    {
                       if($file!="." && $file!=".." && $file[0]=="t")
                       {  
-                         echo "<tr style="border-bottom: 1px solid black;margin-top:2px;margin-bottom:2px;" >";
+                         echo "<tr style=\"border-bottom: 1px solid black;margin-top:2px;margin-bottom:2px;\" >";
                          echo "<td><img src='img/$file' width='100'></td>";
                          $ffile = substr($file,6);
                          echo "<td><input class='btn btn-primary' onclick=\"window.location.href='img/$ffile'\" value='download'></td>";
