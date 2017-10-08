@@ -13,7 +13,8 @@
    <body>
       <div class="container-fluid">
          <form action="previewpano.php" method="GET">
-            <?php
+           <table style="width:100%">
+             <?php
                 $files = scandir('/var/www/picam/img');
                 if(count($files) == 0) echo "<p>No videos/images saved</p>";
                 else 
@@ -21,15 +22,18 @@
                    foreach($files as $file) 
                    {
                       if($file!="." && $file!=".." && $file[0]=="t")
-                      {
-                         echo "<img src='192.168.1.10/picam/img/$file>";
+                      {  
+                         echo "<tr>";
+                         echo "<td><img src='192.168.1.10/picam/img/$file></td>";
                          $ffile = substr($file,6);
-                         echo "<input class='btn btn-primary' onclick=\"window.location.href='192.168.1.10/picam/img/$ffile'\">download</input>";
-                         echo "<button class='btn btn-primary' type='submit' name='previewpano' value='$ffile'>preview</button>";
+                         echo "<td><input class='btn btn-primary' onclick=\"window.location.href='192.168.1.10/picam/img/$ffile'\">download</input></td>";
+                         echo "<td><button class='btn btn-primary' type='submit' name='previewpano' value='$ffile'>preview</button></td>";
+                         echo "</tr>"
                       }
                    }
                 }
-            ?>
+             ?>
+           </table>
          </form>
       </div>
    </body>
