@@ -72,4 +72,4 @@ the address for download photos is: _ip/rpi-web-cam-interface/downloadpano.php_
 
 the address for preview photos is: _ip/rpi-web-cam-interface>/previewpano.php_
 
-
+the address for crop photo setting is: _ip/rpi-web-cam-interface>/crophelper.php_
