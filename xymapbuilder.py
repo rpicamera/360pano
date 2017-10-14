@@ -71,11 +71,17 @@ def main():
     in_delta=0
     if conf_file.is_file():
         f = open('config.txt','r')
-        in_sz_src = f.readline()
-        in_sz_out = f.readline()
-        in_fov    = f.readline()
-        in_qvert  = f.readline()
-        in_delta  = f.readline()
+        str_sz_src = f.readline()
+        str_sz_out = f.readline()
+        str_fov    = f.readline()
+        str_qvert  = f.readline()
+        str_delta  = f.readline()
+
+        in_sz_src = str_sz_src[str_sz_src.index('=')+1]
+        in_sz_out = str_sz_out[str_sz_out.index('=')+1]
+        in_fov    = str_fov[str_fov.index('=')+1]
+        in_qvert  = str_qvert[str_qvert.index('=')+1]=='V'
+        in_delta  = str_delta[str_delta.index('=')+1]
     else:
         in_sz_src   = input('Source image size:')
         in_sz_out   = input('Output image size:')
