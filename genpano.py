@@ -15,7 +15,7 @@ from   pathlib import Path
 import re
 
 # global para
-_debug=2
+_debug=1
 
 conf={
     'src':2190,

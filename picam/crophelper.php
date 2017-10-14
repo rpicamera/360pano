@@ -46,8 +46,8 @@
   </head>
   <body>
     <div class="container-fluid">
-      <img style="width:320" id="mjpeg_left" src="imghelp/helpmaster.jpg">
-      <img style="width:320" id="mjpeg_right" src="imghelp/helpslave.jpg">
+      <img style="width:320px" id="mjpeg_left" src="imghelp/helpcroppedmaster.png">
+      <img style="width:320px" id="mjpeg_right" src="imghelp/helpcroppedslave.png">
       <hr>
         <table style='margin-left: 80px;' >
           <form action="crophelper.php" method="POST">
