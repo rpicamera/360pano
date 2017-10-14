@@ -19,8 +19,8 @@ def main():
     print(tmp)
     mleft=int(mleft)
     sleft=int(sleft)
-    mtop=int(mtop)
-    stop=int(stop)
+    mtop =int(mtop)
+    stop =int(stop)
     msize=int(msize)
     ssize=int(ssize)
 

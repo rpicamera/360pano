@@ -88,17 +88,9 @@ def main():
     if conf_file.is_file():
         f = open('config.txt','r')
         for line in f:
-            if line[0:2]=='src':
-                conf['src']=int(line[line.index('=')+1:])
-            if line[0:2]=='out':
-                conf['out']=int(line[line.index('=')+1:])
-            if line[0:2]=='fov':
-                conf['fov']=int(line[line.index('=')+1:])
-            if line[0:2]=='v/h':
-                vnh=line[line.index('=')+1:]
-                conf['vnh']=int(vnh=='v')
-            if line[0:2]=='del':
-                conf['del']=int(line[line.index('=')+1:])
+            if line[0:2] in conf:
+                conf[line[0:2]]=int(line[line.index('=')+1:])
+                
         f.close()
     else:
         conf['src']   = int(input('Source image size:'))
