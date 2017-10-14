@@ -15,7 +15,7 @@ from   pathlib import Path
 import re
 
 # global para
-_debug=1
+_debug=2
 
 conf={
     'src':2190,
@@ -36,7 +36,7 @@ def getconf():
     config_file = Path(config)
 
     if config_file.is_file():
-        f = open('config.txt','wb')
+        f = open('config.txt','r')
         for line in f:
             if line[0:2]=='src':
                 conf['src']=int(line[line.index('=')+1:])
@@ -238,7 +238,7 @@ def main():
         print("cropped image size: %d*%d pixels " % (sz_src,sz_src))
 
     # build map
-    mapx,mapy = getmap(sz_src,sz_out,fov,True,True)
+    mapx,mapy = getmap(sz_src,sz_out,fov,True,False)
 
     # apply map and output image
     slave_img  = unwarp(slave_img,mapx,mapy)
