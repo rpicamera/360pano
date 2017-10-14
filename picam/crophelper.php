@@ -20,7 +20,7 @@
       $msize=$_POST['msize'];
       $ssize=$_POST['ssize'];
       saveconfig($mleft,$sleft,$mtop,$stop,$msize,$ssize);
-
+      $dbg = "cde";
    } 
 
    if (isset($_POST['crop'])) 
@@ -32,18 +32,21 @@
       $msize=$_POST['msize'];
       $ssize=$_POST['ssize'];
       cropimage($mleft,$sleft,$mtop,$stop,$msize,$ssize);
+      $dbg="edf";
    } 
 
    function saveconfig($mleft,$sleft,$mtop,$stop,$msize,$ssize) 
    {
       writeLog("saving to config file");
-      exec("python saveconf.py $mleft $sleft $mtop $stop $msize $ssize");
+      exec("python saveconf.py $mleft $sleft $mtop $stop $msize $ssize",$output, $ret_code);
    }
 
    function cropimage($mleft,$sleft,$mtop,$stop,$msize,$ssize)
    {
       writeLog("crop the image");
-      exec("python crophelper.py $mleft $sleft $mtop $stop $msize $ssize");
+      $output="";
+      $ret_code="";
+      exec("python crophelper.py $mleft $sleft $mtop $stop $msize $ssize", $output, $ret_code);
    }
 ?>
 
@@ -92,7 +95,7 @@
               <br>
             </tr>
           </form> 
-          <p><?php echo $dbg; ?></p>
+          <p><?php echo $ret_code; ?></p>
         </table>
       <hr>
     </div>
