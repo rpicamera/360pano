@@ -8,6 +8,38 @@
    $stop=100;
    $msize=2190;
    $ssize=2190;
+
+   $handle = fopen("config.txt", "r");
+   if ($handle) {
+      while (($line = fgets($handle)) !== false) {
+          if(substr($line, 0,3)=="mlf")
+          {
+              $mleft=substr($line, 5)
+          }
+          else if(substr($line, 0,3)=="slf")
+          {
+              $sleft=substr($line, 5)
+          }
+          else if(substr($line, 0,3)=="amt")
+          {
+              $mtop=substr($line, 5)
+          }
+          else if(substr($line, 0,3)=="ast")
+          {
+              $stop=substr($line, 5)
+          }
+          else if(substr($line, 0,3)=="msz")
+          {
+              $msize=substr($line, 5)
+          }
+          else if(substr($line, 0,3)=="ssz")
+          {
+              $ssize=substr($line, 5)
+          }
+      }
+
+      fclose($handle);
+   }
    // read the settings from tmp file
 
    if (isset($_POST['save'])) 
