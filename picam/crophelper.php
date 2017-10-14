@@ -37,6 +37,8 @@
 
    function saveconfig($mleft,$sleft,$mtop,$stop,$msize,$ssize) 
    {
+      $output="";
+      $ret_code="";
       writeLog("saving to config file");
       exec("python saveconf.py $mleft $sleft $mtop $stop $msize $ssize",$output, $ret_code);
    }
@@ -95,7 +97,7 @@
               <br>
             </tr>
           </form> 
-          <p><?php echo $ret_code; ?></p>
+          <p><?php echo $dbg; ?></p>
         </table>
       <hr>
     </div>
