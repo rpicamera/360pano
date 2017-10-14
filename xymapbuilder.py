@@ -44,6 +44,7 @@ def buildMap(sz_src,sz_out,fov,qvert):
     map_y = np.zeros((sz_out,sz_out*2),np.float32)
     # vectorizion version
     if qvert:
+        print('Vertical')
         Phi       = np.pi*(np.arange(float(  sz_out))/float(sz_out-1)-0.5)
         Theta     = np.pi*(np.arange(float(2*sz_out))/float(sz_out-1)-1)
         CosPhi    = np.cos(Phi)
@@ -67,6 +68,7 @@ def buildMap(sz_src,sz_out,fov,qvert):
         map_y     = 0.5*sz_src+(R*np.sin(aTheta)).astype('float32')
 
     else:
+        print('Horizontal')
         Phi       = np.pi*(np.arange(float(sz_out))/float(sz_out-1))
         Theta     = np.pi*(np.arange(float(2*sz_out))/float(sz_out-1)-1)
         R         = sz_src*Phi/vfov
