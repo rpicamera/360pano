@@ -2,6 +2,15 @@
    define('BASE_DIR', dirname(__FILE__));
    require_once(BASE_DIR.'/config.php');
 
+   $mleft=150;
+   $sleft=150;
+   $mtop=100;
+   $stop=100;
+   $msize=2190;
+   $ssize=2190;
+   $dbg="abc";
+   // read the settings from tmp file
+
    if (isset($_POST['save'])) 
    {
       $mleft=$_POST['mleft'];
@@ -11,6 +20,7 @@
       $msize=$_POST['msize'];
       $ssize=$_POST['ssize'];
       saveconfig($mleft,$sleft,$mtop,$stop,$msize,$ssize);
+
    } 
 
    if (isset($_POST['crop'])) 
@@ -53,26 +63,26 @@
           <form action="crophelper.php" method="POST">
             <tr>
               <td> 
-                master left: <input type="text" name="mleft" value="150"><br>
+                master left: <input type="text" name="mleft" value="<?php echo $mleft; ?>"><br>
               </td>
               <td>
-                slave left: <input type="text" name="sleft" value="150"><br>
+                slave left: <input type="text" name="sleft" value="<?php echo $sleft; ?>"><br>
               </td>
             </tr>
             <tr>
               <td> 
-                master top: <input type="text" name="mleft" value="100"><br>
+                master top: <input type="text" name="mtop" value="<?php echo $mtop; ?>"><br>
               </td>
               <td>
-                slave top: <input type="text" name="sleft" value="100"><br>
+                slave top: <input type="text" name="stop" value="<?php echo $stop; ?>"><br>
               </td>
             </tr>
             <tr>
               <td> 
-                master size: <input type="text" name="mleft" value="2190"><br>
+                master size: <input type="text" name="msize" value="<?php echo $msize; ?>"><br>
               </td>
               <td>
-                slave size: <input type="text" name="sleft" value="2190"><br>
+                slave size: <input type="text" name="ssize" value="<?php echo $ssize; ?>"><br>
               </td>
             </tr>
             <tr>
@@ -82,6 +92,7 @@
               <br>
             </tr>
           </form> 
+          <p><?php echo $dbg; ?></p>
         </table>
       <hr>
     </div>
