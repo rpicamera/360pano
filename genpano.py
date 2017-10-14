@@ -14,7 +14,55 @@ from   urllib  import urlopen
 from   pathlib import Path
 import re
 
+# global para
 _debug=1
+
+conf={
+    'src':2190,
+    'out':1024,
+    'fov':200,
+    'vnh':'v',
+    'del':30,
+    'mlf':155,
+    'slf':250,
+    'amt':100,
+    'ast':105,
+    'msz':2190,
+    'ssz':2190
+}
+
+def getconf():
+    config='config.txt'
+    config_file = Path(config)
+
+    if config_file.is_file():
+        f = open('config.txt','wb')
+        for line in f:
+            if line[0:2]=='src':
+                conf['src']=int(line[line.index('=')+1:])
+            if line[0:2]=='out':
+                conf['out']=int(line[line.index('=')+1:])
+            if line[0:2]=='fov':
+                conf['fov']=int(line[line.index('=')+1:])
+            if line[0:2]=='v/h':
+                vnh=line[line.index('=')+1:]
+                conf['vnh']=int(vnh=='v')
+            if line[0:2]=='del':
+                conf['del']=int(line[line.index('=')+1:])
+            if line[0:2]=='mlf':
+                conf['mlf']=int(line[line.index('=')+1:])
+            if line[0:2]=='slf':
+                conf['slf']=int(line[line.index('=')+1:])
+            if line[0:2]=='amt':
+                conf['amt']=int(line[line.index('=')+1:])
+            if line[0:2]=='ast':
+                conf['ast']=int(line[line.index('=')+1:])
+            if line[0:2]=='msz':
+                conf['msz']=int(line[line.index('=')+1:])
+            if line[0:2]=='ssz':
+                conf['ssz']=int(line[line.index('=')+1:])
+
+        f.close()
 
 def getmap(sz_src,sz_out,fov,qvert,qbmap):
     map_file = Path('mapx.npy')
@@ -150,20 +198,26 @@ def main():
 
     slave_img  = cv2.imdecode(slave_image, -1)
     master_img = cv2.imdecode(master_image, -1)
-    print(slave_img.shape)
-    print(master_img.shape)
- 
-    sz_src   = 2190   # source image size in pixel after squaring
-    sz_out   = 1024   # output pano image hight in pixel
-    ml       = 155    # modified pixels from left
-    mt       = 0      # modified pixels from top
-    sl       = 250
-    fov      = float(200)
+
+    if _debug>=2:
+        print(slave_img.shape)
+        print(master_img.shape)
+
+    # set up the parameters
+    getconf()
+
+    sz_src   = conf['src']   # source image size in pixel after squaring
+    sz_out   = conf['out']   # output pano image hight in pixel
+    ml       = conf['mlf']    # modified pixels from left
+    sl       = conf['slf']
+    fov      = float(conf['fov'])
+    amtop    = conf['amt']        # modified pixels from top
+    astop    = conf['ast']
+
+    mt       = 0      # modified pixels from top (in this case, use the total height)
 
     # square the image, better to get full circular image
     rows= slave_img.shape
-    amtop = 100        # modified pixels from top
-    astop = 105
     ambottom = sz_src-amtop-rows[0]
     asbottom = sz_src-astop-rows[0]
     if _debug>=1:

@@ -35,7 +35,8 @@ def main():
             if line[0:2]=='fov':
                 conf['fov']=int(line[line.index('=')+1:])
             if line[0:2]=='v/h':
-                conf['vnh']=int(line[line.index('=')+1:])
+                vnh=line[line.index('=')+1:]
+                conf['vnh']=int(vnh=='v')
             if line[0:2]=='del':
                 conf['del']=int(line[line.index('=')+1:])
             if line[0:2]=='mlf':

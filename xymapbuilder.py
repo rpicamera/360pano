@@ -13,6 +13,20 @@ from pathlib import Path
 
 _debug=2
 
+conf={
+    'src':2190,
+    'out':1024,
+    'fov':200,
+    'vnh':'v',
+    'del':30,
+    'mlf':155,
+    'slf':250,
+    'amt':100,
+    'ast':105,
+    'msz':2190,
+    'ssz':2190
+}
+
 """
 input:
 1: source image size: it is from source image, which was hard code as 2200 pixels
@@ -63,7 +77,7 @@ def buildMap(sz_src,sz_out,fov,qvert):
     return map_x, map_y
 
 def main():
-    conf_file = Path('cconfig.txt')
+    conf_file = Path('config.txt')
     in_sz_src=0
     in_sz_out=0
     in_fov = 0
@@ -71,36 +85,38 @@ def main():
     in_delta=0
     if conf_file.is_file():
         f = open('config.txt','r')
-        str_sz_src = f.readline()
-        str_sz_out = f.readline()
-        str_fov    = f.readline()
-        str_qvert  = f.readline()
-        str_delta  = f.readline()
-
-        in_sz_src = str_sz_src[str_sz_src.index('=')+1]
-        in_sz_out = str_sz_out[str_sz_out.index('=')+1]
-        in_fov    = str_fov[str_fov.index('=')+1]
-        in_qvert  = str_qvert[str_qvert.index('=')+1]=='V'
-        in_delta  = str_delta[str_delta.index('=')+1]
+        for line in f:
+            if line[0:2]=='src':
+                conf['src']=int(line[line.index('=')+1:])
+            if line[0:2]=='out':
+                conf['out']=int(line[line.index('=')+1:])
+            if line[0:2]=='fov':
+                conf['fov']=int(line[line.index('=')+1:])
+            if line[0:2]=='v/h':
+                vnh=line[line.index('=')+1:]
+                conf['vnh']=int(vnh=='v')
+            if line[0:2]=='del':
+                conf['del']=int(line[line.index('=')+1:])
+        f.close()
     else:
-        in_sz_src   = input('Source image size:')
-        in_sz_out   = input('Output image size:')
-        in_fov      = input('Fov:')
-        in_qvert    = input('Position(V(0)/H(1)):')
-        in_delta    = input('Boundary smooth delta:')
+        conf['src']   = int(input('Source image size:'))
+        conf['out']   = int(input('Output image size:'))
+        conf['fov']   = int(input('Fov:'))
+        in_qvert      = input('Position(v/h):')
+        conf['vnh']   = int(in_qvert=='v')
+        conf['del']   = int(input('Boundary smooth delta:'))
 
-    sz_src=int(in_sz_src)
-    sz_out=int(in_sz_out)
-    fov=float(in_fov)
-    delta = int(in_delta)
-    qvert=True
-    if in_qvert==1:
-        qvert = False
+    sz_src= conf['src']
+    sz_out= conf['out'] 
+    fov   = float(conf['fov'])
+    delta = conf['del']
+    qvert = conf['vnh']==1
 
     # build map
-    mapstart = int(round(time.time() * 1000))
+    mapstart  = int(round(time.time() * 1000))
     mapx,mapy = buildMap(sz_src,sz_out,fov,qvert)
-    mapstop = int(round(time.time() * 1000))
+    mapstop   = int(round(time.time() * 1000))
+
     if _debug>=1:
         print("Build map cost %d msec" % (mapstop-mapstart))
 
