@@ -8,7 +8,6 @@
    $stop=100;
    $msize=2190;
    $ssize=2190;
-   $dbg="abc";
    // read the settings from tmp file
 
    if (isset($_POST['save'])) 
@@ -61,6 +60,7 @@
   </head>
   <body>
     <div class="container-fluid">
+      <p>left image: master    --|--    right image: slave</p>
       <img style="width:320px" id="mjpeg_left" src="imghelp/helpcroppedmaster.png">
       <img style="width:320px" id="mjpeg_right" src="imghelp/helpcroppedslave.png">
       <hr>
@@ -97,7 +97,6 @@
               <br>
             </tr>
           </form> 
-          <p><?php echo $dbg; ?></p>
         </table>
       <hr>
     </div>
