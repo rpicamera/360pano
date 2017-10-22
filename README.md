@@ -158,5 +158,3 @@ Here is my 2PiView kit:
 <p align="center">
   <img src="https://github.com/rpicamera/360pano/blob/master/img/2PiViewKit.jpg" width="350"/>
 </p>
-
-
