@@ -3,9 +3,9 @@
 360(2 pi) panoramic photo camera kit. 
 
 <div style:"display:inline-block" >
-  <img src="https://github.com/rpicamera/360pano/blob/master/img/Real.jpg" width="200"/>
-  <img src="https://github.com/rpicamera/360pano/blob/master/img/RealFront.jpg" width="200"/>
-  <img src="https://github.com/rpicamera/360pano/blob/master/img/RealSide.jpg" width="200"/> 
+  <img src="https://github.com/rpicamera/360pano/blob/master/img/Real.jpg"      height="400"/>
+  <img src="https://github.com/rpicamera/360pano/blob/master/img/RealFront.jpg" height="400"/>
+  <img src="https://github.com/rpicamera/360pano/blob/master/img/RealSide.jpg"  height="400"/> 
 </div>
 
 It uses simplest panoramic camera frame, which including 2 fisheye camera modules (fov > 180), and computing unite to generate panoramic image from two circular images from fisheye cameras. It uses one Raspberry Pi W (RPi0W) and one Raspberry Pi Zero (w) (RPi0). The RPi0 acts as USB gadget slave, ready to recieve the commands from RPi0W. The RPi0W is used as the master pi, which do the UI on WiFi, get image from slave Pi and generate panoramic image from two circular images. The kit offered the USB and power connection between two Pis, so no other usb cables needed.
