@@ -92,14 +92,14 @@ For both RPi, flash latest Raspbian lite (desktop could be fine, but it is not n
   * 2PiView main frame offered the build in connection of USB and Power shareing. The pin is used to do the physical connection. The following shows the frame. Also it is used for the camera stand.
 
   <p align="center">
-    <img src="https://github.com/rpicamera/360pano/blob/master/img/frame.jpg" width="500"/>
+    <img src="https://github.com/rpicamera/360pano/blob/master/img/frame.png" width="500"/>
   </p>
 
   * The outside stand protect the frame and let it stand on the surface. The set up overlook is as follows.
 
   <p align="center">
-    <img src="https://github.com/rpicamera/360pano/blob/master/img/front.jpg" width="500"/>
-    <img src="https://github.com/rpicamera/360pano/blob/master/img/side.jpg" width="500"/>
+    <img src="https://github.com/rpicamera/360pano/blob/master/img/front.png" width="500"/>
+    <img src="https://github.com/rpicamera/360pano/blob/master/img/side.png" width="500"/>
   </p>
 
 2. Setup steps
