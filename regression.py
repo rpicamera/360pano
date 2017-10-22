@@ -118,7 +118,6 @@ def crop(img,left,top,sz):
     crop_img = img[top:top+sz, left:left+sz] 
     return crop_img
 
-
 def main():
     imgFile = 'img/test.jpg'
 
@@ -127,11 +126,11 @@ def main():
 
     img = cv2.imread(imgFile,cv2.IMREAD_COLOR)
 
-    sz_src   = 2200   # source image size in pixel after squaring
-    sz_out   = 2200   # output pano image hight in pixel
+    sz_src   = 2190   # source image size in pixel after squaring
+    sz_out   = 1024   # output pano image hight in pixel
     ml       = 220    # modified pixels from left
     mt       = 0      # modified pixels from top
-    fov      = float(220)
+    fov      = float(200)
     
     # square the image, better to get full circular image
     rows= img.shape
@@ -142,7 +141,7 @@ def main():
 
     img = crop(img,ml,mt,sz_src)
     M = np.float32([[1,0,0],[0,1,atop]])
-    img = cv2.warpAffine(img,M,(2200,2200))
+    img = cv2.warpAffine(img,M,(2190,2190))
     # rotated the image. 
     img=np.rot90(img)
     img=np.rot90(img)
@@ -159,7 +158,7 @@ def main():
 
     # apply map and output image
     img = unwarp(img,mapx,mapy)
-    cv2.imwrite("img/convertpanotest.png",img)
+    cv2.imwrite("img/regression.png",img)
 
 
 if __name__ == "__main__":

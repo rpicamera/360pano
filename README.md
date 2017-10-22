@@ -150,22 +150,6 @@ the address for preview photos is: _ip/rpi-web-cam-interface>/previewpano.php_
 
 ## Example images
 
-This is the originial image, the left most circular to the left boundary is about 220 pixels.
-
-<p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/img/test.jpg" width="350"/>
-</p>
-
-Here is the image after crop and rotation
-<p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/img/resizecroped.png" width="350"/>
-</p>
-
-And here is the pano image after remapping the above squared circular image
-<p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/img/convertpanotest.png" width="350"/>
-</p>
-
 Create the pano from the my 2PiView kit using Python code, detail in genpano.py. And here is the example
 
 <p align="center">
