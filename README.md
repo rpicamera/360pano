@@ -105,10 +105,10 @@ For both RPi, flash latest Raspbian lite (desktop could be fine, but it is not n
 
   * The outside stand protect the frame and let it stand on the surface. The set up overlook is as follows.
 
-  <p align="center">
-    <img src="https://github.com/rpicamera/360pano/blob/master/img/front.png" width="500"/>
-    <img src="https://github.com/rpicamera/360pano/blob/master/img/side.png" width="500"/>
-  </p>
+  <div style:"display:inline-block" >
+    <img src="https://github.com/rpicamera/360pano/blob/master/img/front.jpg"      height="400"/>
+    <img src="https://github.com/rpicamera/360pano/blob/master/img/side.jpg" height="400"/>
+  </div>
 
 2. Setup steps
 
