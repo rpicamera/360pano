@@ -34,7 +34,7 @@ For both RPi, flash latest Raspbian lite (desktop could be fine, but it is not n
 
   * _That's it, eject the SD card from your computer, put it in your Raspberry Pi Zero and connect it via USB to your computer. It will take up to 90s to boot up (shorter on subsequent boots). It should then appear as a USB Ethernet device. You can SSH into it using raspberrypi.local as the address._
   
-2. Install the rpi cam web interface, better to follow the instructions [here](https://elinux.org/RPi-Cam-Web-Interface).
+2. Install the rpi cam web interface, better to follow the instructions [here](https://elinux.org/RPi-Cam-Web-Interface). When you install the rpi web cam interface, there will be a step for you to choose some configurations. One of them is to set up the install directory. The default directory is _html_, change it to _picam_. The benefit is that the default could be used for other projects. And I hard coded the image directory to _picam_. So for time saving sake, change **html** to **picam**. 
   
   * _**TP**: connect the slave pi to the PC, open a browser, input raspberrypi.local/picam  if shown the live stream, it means it works._
 
@@ -66,7 +66,7 @@ For both RPi, flash latest Raspbian lite (desktop could be fine, but it is not n
        
   Reboot the mater pi.
 
-2. Install the rpi web cam interface
+2. Install the rpi web cam interface. The same as the slave pi. 
   
   * _**TP**: connect RPi0W to your WiFi, open a browser, check the IP and input the http://rpi-ip/picam. If shown the live stream, it worded._
 
@@ -125,14 +125,18 @@ For both RPi, flash latest Raspbian lite (desktop could be fine, but it is not n
 ## Step 3 - Setup HTML interface
 
 1. copy files
+  
+  In this step, the root access is needed (sudo ). Here assume the RPi-Web-Cam-Interface install directory is _picam_.
 
-  * copy all files in _/picam_ except for _aframe.min.js_ into the rpi-web-cam-interface directory.
+  * copy all files in _/picam_ except for _aframe.min.js_ to the /var/www/picam . 
 
-  * copy _aframe.min.js_ to _rpi-web-cam-interface/js/aframe.min.js_
+  * copy _aframe.min.js_ to /var/www/picam/js/aframe.min.js_
 
   * create the directory named _img_
 
-  * copy _../img/panowd.jpg_ into _rpi-web-cam-interface/img_
+  * create the directory names _imghelp_
+
+  * copy _../img/panowd.jpg_ into _picam/img_
 
   * return to _/var/www_ and run the command:
 
@@ -147,13 +151,33 @@ For both RPi, flash latest Raspbian lite (desktop could be fine, but it is not n
     
   wait for it finished, go to _img_ and check is there a new file. If passed the test, it means it worked. 
 
-2. test the whole thing
+2. Initial the system
 
-the address for taking photos is : _ip/rpi-web-cam-interface/panoindex.php_
+  Because every single camera may not be the same. So the circular image may not located on the default place. In this step, using html interface, the configure file will be generated and saved to the local. 
 
-the address for download photos is: _ip/rpi-web-cam-interface/downloadpano.php_
+  * Open a browser and url: _ip/picam/crophelper.php  . Here the program will shoot two photos and show it on the page.
 
-the address for preview photos is: _ip/rpi-web-cam-interface>/previewpano.php_
+  * Input the value in the text box to move the red circle such that the circule could match the boundary of the cirular image.
+
+  * Click save button to save the configuration
+
+3. Try the whole system
+
+  After initial the system, it should generate the pano image. Next step is to generate the 3 maps from the setting by
+ 
+    ```
+        sudo python xymapbuilder.py
+    ```
+  
+  This will generate the maps for the remapping, make the code run faster. The following is the pages for taking and download the pano photos. 
+
+  * The address for taking photos is : _ip/picam/panoindex.php_
+
+  * The address for download photos is: _ip/picam/downloadpano.php_
+
+  In download page, it gives the option to preview the image with VR. So if you had a VR head set and a Smart Phone, you could try with it. The default pano image I put here is the world map. 
+
+  * The address for preview photos is: _ip/picam/previewpano.php_
 
 
 ## Example images
