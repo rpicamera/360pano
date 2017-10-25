@@ -3,9 +3,9 @@
 360(2 pi) panoramic photo camera kit. 
 
 <div style:"display:inline-block" >
-  <img src="https://github.com/rpicamera/360pano/blob/master/img/Real.jpg"      height="400"/>
-  <img src="https://github.com/rpicamera/360pano/blob/master/img/RealFront.jpg" height="400"/>
-  <img src="https://github.com/rpicamera/360pano/blob/master/img/RealSide.jpg"  height="400"/> 
+  <img src="https://github.com/rpicamera/2PiViewMedia/blob/master/img/Real.jpg"      height="400"/>
+  <img src="https://github.com/rpicamera/2PiViewMedia/blob/master/img/RealFront.jpg" height="400"/>
+  <img src="https://github.com/rpicamera/2PiViewMedia/blob/master/img/RealSide.jpg"  height="400"/> 
 </div>
 
 It uses simplest panoramic camera frame, which including 2 fisheye camera modules (fov > 180), and computing unite to generate panoramic image from two circular images from fisheye cameras. It uses one Raspberry Pi W (RPi0W) and one Raspberry Pi Zero (w) (RPi0). The RPi0 acts as USB gadget slave, ready to recieve the commands from RPi0W. The RPi0W is used as the master pi, which do the UI on WiFi, get image from slave Pi and generate panoramic image from two circular images. The kit offered the USB and power connection between two Pis, so no other usb cables needed.
@@ -90,7 +90,7 @@ For both RPi, flash latest Raspbian lite (desktop could be fine, but it is not n
   ```
 
   <p align="center">
-    <img src="https://github.com/rpicamera/360pano/blob/master/img/regression.png" width="350"/>
+    <img src="https://github.com/rpicamera/2PiViewMedia/blob/master/img/regression.png" width="350"/>
   </p>
   
 ## Step 2 - Setup the kit
@@ -100,14 +100,14 @@ For both RPi, flash latest Raspbian lite (desktop could be fine, but it is not n
   * 2PiView main frame offered the build in connection of USB and Power shareing. The pin is used to do the physical connection. The following shows the frame. Also it is used for the camera stand.
 
   <p align="center">
-    <img src="https://github.com/rpicamera/360pano/blob/master/img/frame.png" width="500"/>
+    <img src="https://github.com/rpicamera/2PiViewMedia/blob/master/img/frame.png" width="500"/>
   </p>
 
   * The outside stand protect the frame and let it stand on the surface. The set up overlook is as follows.
 
   <div style:"display:inline-block" >
-    <img src="https://github.com/rpicamera/360pano/blob/master/img/front.png" height="400"/>
-    <img src="https://github.com/rpicamera/360pano/blob/master/img/side.png"  height="400"/>
+    <img src="https://github.com/rpicamera/2PiViewMedia/blob/master/img/front.png" height="400"/>
+    <img src="https://github.com/rpicamera/2PiViewMedia/blob/master/img/side.png"  height="400"/>
   </div>
 
 2. Setup steps
@@ -161,17 +161,17 @@ the address for preview photos is: _ip/rpi-web-cam-interface>/previewpano.php_
 Create the pano from the my 2PiView kit using Python code, detail in genpano.py. And here is the example
 
 <p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/img/pano.png" width="350"/>
+  <img src="https://github.com/rpicamera/2PiViewMedia/blob/master/img/pano.png" width="350"/>
 </p>
 
 This is the view from the phone. 
 
 <p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/img/VRExample.png" width="350"/>
+  <img src="https://github.com/rpicamera/2PiViewMedia/blob/master/img/VRExample.png" width="350"/>
 </p>
 
 Here is my 2PiView kit:
 
 <p align="center">
-  <img src="https://github.com/rpicamera/360pano/blob/master/img/2PiViewKit.jpg" width="350"/>
+  <img src="https://github.com/rpicamera/2PiViewMedia/blob/master/img/2PiViewKit.jpg" width="350"/>
 </p>
