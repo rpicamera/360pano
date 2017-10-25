@@ -55,6 +55,48 @@ def getmap(sz_src,sz_out,fov,qvert,qbmap):
     map_y = np.load('mapy.npy')
     return map_x,map_y
 
+def getDualPiImages():
+# get image from master and slave pi
+    requests.get("http://127.0.0.1/picam/cmd_pipe.php?cmd=im");
+    requests.get("http://raspberrypi.local/picam/cmd_pipe.php?cmd=im");
+
+    time.sleep(1)
+
+    paternsize = 1000
+
+    slave_media_dir  = 'http://raspberrypi.local/picam/media/'
+    master_media_dir = 'http://127.0.0.1/picam/media/'
+    urlpath = urlopen(slave_media_dir)
+    string = urlpath.read().decode('utf-8')
+    patern = re.compile('([^\"\']*\.jpg)');
+    filelist = patern.findall(string[len(string)-paternsize:])
+    filename = filelist[len(filelist)-4]
+    rsp = urlopen(slave_media_dir+filename)
+    slave_image = np.array(bytearray(rsp.read()), dtype=np.uint8)
+
+    if _debug>=2:
+        print(slave_media_dir + filename)
+        output = open("img/slave.jpg","wb")
+        rsc = urlopen(slave_media_dir+filename)
+        output.write(rsc.read())
+        output.close()
+
+    urlpath = urlopen(master_media_dir)
+    string = urlpath.read().decode('utf-8')
+    filelist = patern.findall(string[len(string)-paternsize:])
+    filename = filelist[len(filelist)-4]
+    rsp = urlopen(master_media_dir+filename)
+    master_image = np.array(bytearray(rsp.read()), dtype=np.uint8)
+
+    if _debug>=2:
+        print(master_media_dir+filename+'|')
+        output = open("img/master.jpg","wb")
+        rsc = urlopen(master_media_dir+filename)
+        output.write(rsc.read())
+        output.close()
+
+    return master_image,slave_image
+
 """
 input:
 1: source image size: it is from source image, which was hard code as 2200 pixels
@@ -136,44 +178,7 @@ def smoothBound(img1, img2, w, h, delta):
 
 def main():
 
-    # get image from master and slave pi
-    requests.get("http://127.0.0.1/picam/cmd_pipe.php?cmd=im");
-    requests.get("http://raspberrypi.local/picam/cmd_pipe.php?cmd=im");
-
-    time.sleep(1)
-
-    paternsize = 1000
-
-    slave_media_dir  = 'http://raspberrypi.local/picam/media/'
-    master_media_dir = 'http://127.0.0.1/picam/media/'
-    urlpath = urlopen(slave_media_dir)
-    string = urlpath.read().decode('utf-8')
-    patern = re.compile('([^\"\']*\.jpg)');
-    filelist = patern.findall(string[len(string)-paternsize:])
-    filename = filelist[len(filelist)-4]
-    rsp = urlopen(slave_media_dir+filename)
-    slave_image = np.array(bytearray(rsp.read()), dtype=np.uint8)
-
-    if _debug>=2:
-        print(slave_media_dir + filename)
-        output = open("img/slave.jpg","wb")
-        rsc = urlopen(slave_media_dir+filename)
-        output.write(rsc.read())
-        output.close()
-
-    urlpath = urlopen(master_media_dir)
-    string = urlpath.read().decode('utf-8')
-    filelist = patern.findall(string[len(string)-paternsize:])
-    filename = filelist[len(filelist)-4]
-    rsp = urlopen(master_media_dir+filename)
-    master_image = np.array(bytearray(rsp.read()), dtype=np.uint8)
-
-    if _debug>=2:
-        print(master_media_dir+filename+'|')
-        output = open("img/master.jpg","wb")
-        rsc = urlopen(master_media_dir+filename)
-        output.write(rsc.read())
-        output.close()
+    master_img,slave_image = getDualPiImages()
 
     slave_img  = cv2.imdecode(slave_image, -1)
     master_img = cv2.imdecode(master_image, -1)
