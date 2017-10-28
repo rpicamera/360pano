@@ -33,8 +33,20 @@ For both RPi, flash latest Raspbian lite (desktop could be fine, but it is not n
   * _Finally, open up the cmdline.txt. Be careful with this file, it is very picky with its formatting! Each parameter is seperated by a single space (it does not use newlines). Insert modules-load=dwc2,g_ether after rootwait. To compare, an edited version of the cmdline.txt file at the time of writing, can be found here._
 
   * _That's it, eject the SD card from your computer, put it in your Raspberry Pi Zero and connect it via USB to your computer. It will take up to 90s to boot up (shorter on subsequent boots). It should then appear as a USB Ethernet device. You can SSH into it using raspberrypi.local as the address._
-  
-2. Install the rpi cam web interface, better to follow the instructions [here](https://elinux.org/RPi-Cam-Web-Interface). When you install the rpi web cam interface, there will be a step for you to choose some configurations. One of them is to set up the install directory. The default directory is _html_, change it to _picam_. The benefit is that the default could be used for other projects. And I hard coded the image directory to _picam_. So for time saving sake, change **html** to **picam**. 
+
+2. If you used Lite OS, there were several packages should be installed before the next step (master pi is the same). As follows
+
+  ```python
+  sudo apt-get update
+  sudo apt-get upgrade
+  sudo apt-get install git
+  sudo apt-get install apache2
+  sudo apt-get install php
+  ```
+
+  After these steps, enable Camera interface by _sudo raspi-config_, and then reboot the system.
+ 
+3. Install the rpi cam web interface, better to follow the instructions [here](https://elinux.org/RPi-Cam-Web-Interface). When you install the rpi web cam interface, there will be a step for you to choose some configurations. One of them is to set up the install directory. The default directory is _html_, change it to _picam_. The benefit is that the default could be used for other projects. And I hard coded the image directory to _picam_. So for time saving sake, change **html** to **picam**. 
   
   * _**TP**: connect the slave pi to the PC, open a browser, input raspberrypi.local/picam  if shown the live stream, it means it works._
 
@@ -73,12 +85,14 @@ For both RPi, flash latest Raspbian lite (desktop could be fine, but it is not n
 ## Step 1 - Software Setup
 
 1. Follow the order of install.list to install the needed packages in RPi0W. In short
-  * sudo apt-get install python-opencv
-  * sudo apt-get install libopencv-dev
-  * sudo apt-get install python-pip
-  * sudo apt-get install python-numpy
-  * sudo apt-get install libjpeg8-dev
-  * sudo pip install pillow
+  ```python
+  sudo apt-get install python-opencv
+  sudo apt-get install libopencv-dev
+  sudo apt-get install python-pip
+  sudo apt-get install python-numpy
+  sudo apt-get install libjpeg8-dev
+  sudo pip install pillow
+  ```
 
 2. Clone this git and test
   * git clone https://github.com/rpicamera/360pano.git
