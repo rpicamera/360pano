@@ -55,6 +55,12 @@ For both RPi, flash latest Raspbian lite (desktop could be fine, but it is not n
   ```python
   sudo ln -s /dev/shm/mjpeg/cam.jpg cam.jpg
   ```
+  
+  Back to /var/www and the run the following to change the permission.
+
+  ```
+  sudo chown -R www-data:www-data <rpi-web-cam-interface>
+  ```
 
 ### Master Pi, Pi Zero W
 
