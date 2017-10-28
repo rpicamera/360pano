@@ -48,7 +48,13 @@ For both RPi, flash latest Raspbian lite (desktop could be fine, but it is not n
  
 3. Install the rpi cam web interface, better to follow the instructions [here](https://elinux.org/RPi-Cam-Web-Interface). When you install the rpi web cam interface, there will be a step for you to choose some configurations. One of them is to set up the install directory. The default directory is _html_, change it to _picam_. The benefit is that the default could be used for other projects. And I hard coded the image directory to _picam_. So for time saving sake, change **html** to **picam**. 
   
-  * _**TP**: connect the slave pi to the PC, open a browser, input raspberrypi.local/picam  if shown the live stream, it means it works._
+  * _**TP**: connect the slave pi to the PC, open a browser, input raspberrypi.local/picam  if shown the live stream, it means it works. Also, please change some settings. Such as resolutions to Max View, turn off the exposure mode and white ballance, rotate the image if necessary._
+
+4. Link the mjpeg to the picam. Log in to the slave pi and direct to /var/www/picam/ and input the following command
+
+  ```python
+  sudo ln -s /dev/shm/mjpeg/cam.jpg cam.jpg
+  ```
 
 ### Master Pi, Pi Zero W
 
