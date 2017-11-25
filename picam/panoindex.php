@@ -46,7 +46,7 @@
       var $mjpeg_right_img=$("#mjpeg_right");
       
       var localhost=location.host;
-      var ip = '192.168.1.4'//localhost.substring(0,localhost.indexOf(':'));
+      var ip = localhost;
       var ip_left ="http://"+ip+":80/picam";
       var ip_right="http://"+ip+":80/picam"; 
       $mjpeg_left_img[0].src =ip_left +"/loading.jpg"
