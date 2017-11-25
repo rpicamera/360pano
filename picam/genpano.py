@@ -38,8 +38,8 @@ def getconf():
     if config_file.is_file():
         f = open('config.txt','r')
         for line in f:
-            if line[0:2] in conf:
-                conf[line[0:2]]=int(line[line.index('=')+1:])
+            if line[0:3] in conf:
+                conf[line[0:3]]=int(line[line.index('=')+1:])
 
         f.close()
 
@@ -178,7 +178,7 @@ def smoothBound(img1, img2, w, h, delta):
 
 def main():
 
-    master_img,slave_image = getDualPiImages()
+    master_image,slave_image = getDualPiImages()
 
     slave_img  = cv2.imdecode(slave_image, -1)
     master_img = cv2.imdecode(master_image, -1)

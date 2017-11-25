@@ -36,7 +36,7 @@ The following steps will show how to setup the slave pi (RPi0) and master pi (RP
 
   * _That's it, eject the SD card from your computer, put it in your Raspberry Pi Zero and connect it via USB to your computer. It will take up to 90s to boot up (shorter on subsequent boots). It should then appear as a USB Ethernet device. You can SSH into it using raspberrypi.local as the address._
 
-2. If you used Lite OS, there were several packages should be installed before the next step (master pi is the same). As follows
+2. If you used Lite OS, there were several packages should be installed before the next step. As follows
 
   ```python
   sudo apt-get update
@@ -46,13 +46,15 @@ The following steps will show how to setup the slave pi (RPi0) and master pi (RP
   sudo apt-get install php
   ```
 
-  After these steps, enable Camera interface by _sudo raspi-config_, and then reboot the system.
+  After these steps, enable **Camera Interface** by _sudo raspi-config_, and then reboot the system.
  
 3. Install the rpi cam web interface, better to follow the instructions [here](https://elinux.org/RPi-Cam-Web-Interface). When you install the rpi web cam interface, there will be a step for you to choose some configurations. One of them is to set up the install directory. The default directory is _html_, change it to _picam_. The benefit is that the default could be used for other projects. And I hard coded the image directory to _picam_. So for time saving sake, change **html** to **picam**. 
   
-  * _**TP**: connect the slave pi to the PC, open a browser, input raspberrypi.local/picam  if shown the live stream, it means it works. Also, please change some settings. Such as resolutions to Max View, turn off the exposure mode and white ballance, rotate the image if necessary._
+  * _**TP**: connect the slave pi to the PC, open a browser, input raspberrypi.local/picam  if shown the live stream, it means it works. 
 
-4. Link the mjpeg to the picam. Log in to the slave pi and direct to /var/www/picam/ and input the following command
+4. Change some image settings, such as resolutions to Max View, turn off the **exposure mode** and **white ballance**, rotate the image if necessary._
+
+5. Link the mjpeg to the picam. Log in to the slave pi and direct to /var/www/picam/ and input the following command
 
   ```python
   sudo ln -s /dev/shm/mjpeg/cam.jpg cam.jpg
@@ -61,14 +63,20 @@ The following steps will show how to setup the slave pi (RPi0) and master pi (RP
   Back to /var/www and the run the following to change the permission.
 
   ```
-  sudo chown -R www-data:www-data <rpi-web-cam-interface>
+  sudo chown -R www-data:www-data picam
   ```
+
+The slave pi is setup ad ready to use.
 
 ### Master Pi, Pi Zero W
 
-1. Set up the wireless. 
+1. Prepare the Micro SD card. The first step is similar to the slave pi. 
+ 
+ _Flash Raspbian full or Raspbian Lite (recommended) onto the SD card_
 
-  Still in the boot partition, add the file **wpa_supplicant.conf** and add the following lines and replace SSID and PASSWORD with the ones for your network:
+  * _If using a recent release of raspbian (Dec 2016 onwards), then create a new file simply called ssh in the SD card as well. By default SSH is now disabled so this is required to enable it. Remember - Make sure your file doesn't have an extension (like .txt etc)!_
+
+  **Still** in the boot partition, add the file **wpa_supplicant.conf** and add the following lines and replace SSID and PASSWORD with the ones for your network:
 
         ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
         update_config=1
@@ -92,9 +100,21 @@ The following steps will show how to setup the slave pi (RPi0) and master pi (RP
        
   Reboot the mater pi.
 
-2. Install the rpi web cam interface. The same as the slave pi. 
+2. Install the rpi web cam interface. The steps is as same as the slave pi. If you used Lite OS, there were several packages should be installed before the next step. As follows
+
+  ```python
+  sudo apt-get update
+  sudo apt-get upgrade
+  sudo apt-get install git
+  sudo apt-get install apache2
+  sudo apt-get install php
+  ```
+
+  After these steps, enable **Camera Interface** by _sudo raspi-config_, and then reboot the system. 
+
+  Install the rpi cam web interface, better to follow the instructions [here](https://elinux.org/RPi-Cam-Web-Interface). When you install the rpi web cam interface, there will be a step for you to choose some configurations. One of them is to set up the install directory. The default directory is _html_, change it to _picam_. The benefit is that the default could be used for other projects. And I hard coded the image directory to _picam_. So for time saving sake, change **html** to **picam**. 
   
-  * _**TP**: connect RPi0W to your WiFi, open a browser, check the IP and input the http://rpi-ip/picam. If shown the live stream, it worded._
+  * _**TP**: Power up RPi0W and then wait for about 1 min, open a browser, check the IP and input the http://rpi-ip/picam. If shown the live stream, it worded._
 
 ## Step 1 - Software Setup
 
@@ -106,6 +126,8 @@ The following steps will show how to setup the slave pi (RPi0) and master pi (RP
   sudo apt-get install python-numpy
   sudo apt-get install libjpeg8-dev
   sudo pip install pillow
+  sudo pip install requests
+  sudo pip install pathlib
   ```
 
 2. Clone this git and test

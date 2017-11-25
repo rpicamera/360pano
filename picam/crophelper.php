@@ -8,11 +8,9 @@
    $stop=100;
    $msize=2190;
    $ssize=2190;
-   $dbg="a";
 
    $handle = fopen("config.txt", "r");
    if ($handle) {
-      $dbg = "abcde";
       while (($line = fgets($handle)) !== false) {
           if(substr($line, 0,3)=="mlf")
           {
