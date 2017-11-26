@@ -24,17 +24,17 @@ The following steps will show how to setup the slave pi (RPi0) and master pi (RP
   
 1. Follow the instructions to set up the USBGadget. The full instruction can be found in [here](http://blog.gbaman.info/?p=791).  In short, here is the steps copied from that instruction. 
 
-  _For this method, alongside your Pi Zero, MicroUSB cable and MicroSD card, only an additional computer is required, which can be running Windows (with Bonjour, iTunes or Quicktime installed), Mac OS or Linux (with Avahi Daemon installed, for example Ubuntu has it built in)._
+    _For this method, alongside your Pi Zero, MicroUSB cable and MicroSD card, only an additional computer is required, which can be running Windows (with Bonjour, iTunes or Quicktime installed), Mac OS or Linux (with Avahi Daemon installed, for example Ubuntu has it built in)._
 
-  * _Flash Raspbian full or Raspbian Lite (recommended) onto the SD card_
+    * _Flash Raspbian full or Raspbian Lite (recommended) onto the SD card_
 
-  * _Once Raspbian is flashed, open up the boot partition (in Windows Explorer, Finder etc) and add to the bottom of the config.txt file dtoverlay=dwc2 on a new line, then save the file._
+    * _Once Raspbian is flashed, open up the boot partition (in Windows Explorer, Finder etc) and add to the bottom of the config.txt file dtoverlay=dwc2 on a new line, then save the file._
 
-  * _If using a recent release of raspbian (Dec 2016 onwards), then create a new file simply called ssh in the SD card as well. By default SSH is now disabled so this is required to enable it. Remember - Make sure your file doesn't have an extension (like .txt etc)!_
+    * _If using a recent release of raspbian (Dec 2016 onwards), then create a new file simply called ssh in the SD card as well. By default SSH is now disabled so this is required to enable it. Remember - Make sure your file doesn't have an extension (like .txt etc)!_
 
-  * _Finally, open up the cmdline.txt. Be careful with this file, it is very picky with its formatting! Each parameter is seperated by a single space (it does not use newlines). Insert modules-load=dwc2,g_ether after rootwait. To compare, an edited version of the cmdline.txt file at the time of writing, can be found here._
+    * _Finally, open up the cmdline.txt. Be careful with this file, it is very picky with its formatting! Each parameter is seperated by a single space (it does not use newlines). Insert modules-load=dwc2,g_ether after rootwait. To compare, an edited version of the cmdline.txt file at the time of writing, can be found here._
 
-  * _That's it, eject the SD card from your computer, put it in your Raspberry Pi Zero and connect it via USB to your computer. It will take up to 90s to boot up (shorter on subsequent boots). It should then appear as a USB Ethernet device. You can SSH into it using raspberrypi.local as the address._
+    * _That's it, eject the SD card from your computer, put it in your Raspberry Pi Zero and connect it via USB to your computer. It will take up to 90s to boot up (shorter on subsequent boots). It should then appear as a USB Ethernet device. You can SSH into it using raspberrypi.local as the address._
 
 2. If you used Lite OS, there were several packages should be installed before the next step. As follows
 
@@ -46,8 +46,8 @@ The following steps will show how to setup the slave pi (RPi0) and master pi (RP
   sudo apt-get install php
   ```
 
-  After these steps, enable **Camera Interface** by _sudo raspi-config_, and then reboot the system.
- 
+    After these steps, enable **Camera Interface** by _sudo raspi-config_, and then reboot the system.
+   
 3. Install the rpi cam web interface, better to follow the instructions [here](https://elinux.org/RPi-Cam-Web-Interface). When you install the rpi web cam interface, there will be a step for you to choose some configurations. One of them is to set up the install directory. The default directory is _html_, change it to _picam_. The benefit is that the default could be used for other projects. And I hard coded the image directory to _picam_. So for time saving sake, change **html** to **picam**. 
   
   * _**TP**: connect the slave pi to the PC, open a browser, input raspberrypi.local/picam  if shown the live stream, it means it works._
@@ -72,9 +72,9 @@ The slave pi is setup and ready to use.
 
 1. Prepare the Micro SD card. The first step is similar to the slave pi. 
  
-  *_Flash Raspbian full or Raspbian Lite (recommended) onto the SD card_
+    * _Flash Raspbian full or Raspbian Lite (recommended) onto the SD card_
 
-  * _If using a recent release of raspbian (Dec 2016 onwards), then create a new file simply called ssh in the SD card as well. By default SSH is now disabled so this is required to enable it. Remember - Make sure your file doesn't have an extension (like .txt etc)!_
+    * _If using a recent release of raspbian (Dec 2016 onwards), then create a new file simply called ssh in the SD card as well. By default SSH is now disabled so this is required to enable it. Remember - Make sure your file doesn't have an extension (like .txt etc)!_
 
   **Still** in the boot partition, add the file **wpa_supplicant.conf** and add the following lines and replace SSID and PASSWORD with the ones for your network:
 
@@ -100,7 +100,7 @@ The slave pi is setup and ready to use.
        
   Reboot the mater pi.
 
-2. Install the rpi web cam interface. The steps is as same as the slave pi. If you used Lite OS, there were several packages should be installed before the next step. As follows
+3. Install the **RPi Web Cam Interface**. The steps is as same as the slave pi. If you used Lite OS, there were several packages should be installed before the next step. As follows
 
   ```python
   sudo apt-get update
@@ -110,11 +110,11 @@ The slave pi is setup and ready to use.
   sudo apt-get install php
   ```
 
-  After these steps, enable **Camera Interface** by _sudo raspi-config_, and then reboot the system. 
+    After these steps, enable **Camera Interface** by _sudo raspi-config_, and then reboot the system. 
 
-  Install the rpi cam web interface, better to follow the instructions [here](https://elinux.org/RPi-Cam-Web-Interface). When you install the rpi web cam interface, there will be a step for you to choose some configurations. One of them is to set up the install directory. The default directory is _html_, change it to _picam_. The benefit is that the default could be used for other projects. And I hard coded the image directory to _picam_. So for time saving sake, change **html** to **picam**. 
-  
-  * _**TP**: Power up RPi0W and then wait for about 1 min, open a browser, check the IP and input the http://rpi-ip/picam. If shown the live stream, it worded._
+    Install the rpi cam web interface, better to follow the instructions [here](https://elinux.org/RPi-Cam-Web-Interface). When you install the rpi web cam interface, there will be a step for you to choose some configurations. One of them is to set up the install directory. The default directory is _html_, change it to _picam_. The benefit is that the default could be used for other projects. And I hard coded the image directory to _picam_. So for time saving sake, change **html** to **picam**. 
+    
+    * _**TP**: Power up RPi0W and then wait for about 1 min, open a browser, check the IP and input the http://rpi-ip/picam. If shown the live stream, it worded._
 
 ## Step 1 - Software Setup
 
@@ -133,7 +133,7 @@ The slave pi is setup and ready to use.
 2. Clone this git and test
   * git clone https://github.com/rpicamera/360pano.git
 
-  * _**TP**: Test the regression code. Run the following line. If no error message and it generate the sample pano image named **regression.png** as follows, it worked._
+  * _**TP**: Test the regression code. Run the following line. If no error message and it generates the pano image named **regression.png** as follows, it worked._
 
   ```python
   python regression.py
@@ -162,9 +162,7 @@ The slave pi is setup and ready to use.
 
 2. Setup steps
 
-  * soldering the pins
-
-  * screw the Pi Zero and camera modules to the frame.
+  Please watch this video. 
 
 3. Test the connection
 
@@ -181,12 +179,15 @@ The slave pi is setup and ready to use.
   * go to _~/360pano/picam_ and run
 
     ```
-    sudo ./filecopy.sh
+    sudo sh ./filecopy.sh
     ```
-  * create the directory named **img**
+  * go to _/var/www/picam_ create the directory named **img** and the directory names **imghelp**
 
-  * create the directory names **imghelp**
-  
+  * copy the world map if you would like to, run:
+
+    ```
+    sudo cp ~/360pano/img/panowm.jpg /var/www/picam/img/panowm.jpg
+    ```
   * go to _/var/www_ and run the command:
 
     ```
@@ -202,9 +203,9 @@ The slave pi is setup and ready to use.
 
 2. Initial the system
 
-  Because every single camera may not be the same. So the circular image may not located on the default place. In this step, using html interface, the configure file will be generated and saved to the local. 
+  Because each fisheye camera module may not be the same. So the circular image may not located on the default place. In this step, using html interface, the configure file will be generated and saved to the local. 
 
-  * Open a browser and url: _ip/picam/crophelper.php and click the _crop_ button. Here the program will shoot two photos and show them on the page.
+  * Open a browser and url: _ip/picam/crophelper.php and click the _crop_ button. The program will shoot two photos and show them on the page.
 
   * Input the value in the text box to move the red circle such that the circule could match the boundary of the cirular image.
 
